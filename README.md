@@ -1,8 +1,19 @@
-# Meteor Addon Template
+# HAHAddon
 
-A template to allow easy usage of the Meteor Addon API.
+Small utility addon for Meteor Client, nothing fancy.
 
-### How to use:  
-- Clone this project
-- Use this template to create new modules/commands
-- Run the mod with Meteor.
+## Modules:
+<pre>
+- Auto grow        | Bonemeals crops around you 
+- Auto Sex         | Pretty much Banana+'s AutoSex
+- Highway viewer   | Traces lines on world axis, bit broken
+- Nav tracer       | Draws a tracer to a block
+- No bed interact  | Prevents you from reseting your spawnpoint, or blowing up
+- Stash finder     | Copy paste of meteor's stash finder, but with regular blocks
+- Stay above       | Keeps you in a certain Y level range
+</pre>
+
+## Hud:
+<pre>
+- No leak coords   | Offsets your coords in your hud
+</pre>
