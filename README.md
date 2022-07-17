@@ -1,6 +1,7 @@
 # HAHAddon
 
 Small utility addon for Meteor Client, nothing fancy.
+Only for 1.18.2 / Meteor 0.4.8
 
 ## Modules:
 <pre>
