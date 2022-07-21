@@ -24,7 +24,6 @@ import java.util.ArrayList;
 public class Auto_grow extends Module {
 
     private final SettingGroup sgGeneral  = settings.getDefaultGroup();
-    private final SettingGroup sgDebug = settings.createGroup("Debug");
 
     private final Setting<List<Block>> crops = sgGeneral.add(new BlockListSetting.Builder()
         .name("filter")
@@ -71,19 +70,12 @@ public class Auto_grow extends Module {
         .build()
     );
 
-    private final Setting<Boolean> chat = sgDebug.add(new BoolSetting.Builder()
-        .name("chat")
-        .description("more debug")
-        .defaultValue(false)
-        .build()
-    );
-
     private int timer;
     private int n = 0;
     private Direction dir;
 
     public Auto_grow() {
-        super(HAHAddon.CATEGORY, "Auto grow", "Automatically bonemeals nearby crops (unfinished)");
+        super(HAHAddon.CATEGORY, "Auto Grow", "Automatically bonemeals nearby crops.");
     }
 
     @EventHandler
@@ -126,8 +118,6 @@ public class Auto_grow extends Module {
         if (hands.get()) InvUtils.swap(bone_meal.slot(), true);
         BlockHitResult result = new BlockHitResult(new Vec3d(blockpos.getX() + 0.5, blockpos.getY() + 0.1, blockpos.getZ() + 0.5), dir, blockpos, true);
         ActionResult res = mc.interactionManager.interactBlock(mc.player, mc.world, Hand.MAIN_HAND, result);
-        if (chat.get()) info("BlockHit : " + result.getType());
-        if (chat.get()) info("actionRes : " + res.isAccepted());
     }
 
     // thanks eureka :)
@@ -185,7 +175,7 @@ public class Auto_grow extends Module {
         block == Blocks.BIG_DRIPLEAF ||
         block == Blocks.SMALL_DRIPLEAF ||
         block == Blocks.MOSS_BLOCK ||
-        block == Blocks.KELP ||
+        // block == Blocks.KELP_PLANT_BLOCK ||
         block == Blocks.ROOTED_DIRT;
     }
 

@@ -61,7 +61,7 @@ public class No_bed_interact extends Module {
     );
 
     public No_bed_interact() {
-        super(HAHAddon.CATEGORY, "No bed interact", "Prevents you from reseting your spawn, or blowing up.");
+        super(HAHAddon.CATEGORY, "No Bed Interact", "Prevents you from reseting your spawn, or blowing up.");
     }
 
     @EventHandler

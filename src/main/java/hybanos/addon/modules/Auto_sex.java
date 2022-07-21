@@ -48,14 +48,14 @@ public class Auto_sex extends Module {
     private final Setting<List<String>> messages = sgGeneral.add(new StringListSetting.Builder()
         .name("messages")
         .description("Messages to use for sex.")
-        .defaultValue("%s seggs me")
+        .defaultValue(List.of("Fuck me hard daddy %s","Spill your white cum all over me %s","Seggs me %s","uwu rawr~ %s","Tonight I'm all yours %s", "Let me swallow your babies %s"))
         .build()
     );
 
     private final Setting<Integer> delay = sgGeneral.add(new IntSetting.Builder()
         .name("delay")
         .description("The delay between specified messages in ticks.")
-        .defaultValue(20)
+        .defaultValue(100)
         .min(0)
         .sliderMax(200)
         .build()
@@ -83,7 +83,7 @@ public class Auto_sex extends Module {
     );
 
     public Auto_sex() {
-        super(HAHAddon.CATEGORY, "Auto sex", "%s will be replaced by sex partner");
+        super(HAHAddon.CATEGORY, "Auto Sex", "%s will be replaced by sex partner");
     }
 
     private final List<AbstractClientPlayerEntity> players = new ArrayList<>();

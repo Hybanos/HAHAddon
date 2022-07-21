@@ -18,7 +18,7 @@
     ]
   },
   "mixins": [
-    "template.mixins.json"
+    "hahaddon.mixins.json"
   ],
   "custom": {
     "meteor-client:color": "73,107,255"

@@ -12,6 +12,8 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.network.packet.s2c.play.DisconnectS2CPacket;
 
+// TODO : work in more screens
+
 public class Stay_above extends Module {
 
     private final SettingGroup sgJump = settings.createGroup("Jump");
@@ -92,7 +94,7 @@ public class Stay_above extends Module {
     private int count = 0;
 
     public Stay_above() {
-        super(HAHAddon.CATEGORY, "Stay above", "prevents you from getting under a certain height");
+        super(HAHAddon.CATEGORY, "Stay Above", "Prevents you from getting under a certain height.");
     }
 
     @Override
@@ -108,7 +110,7 @@ public class Stay_above extends Module {
         }
         if ( mc.player.isOnGround()) return;
         if (jump_active.get()) {
-            if (lower.get() > upper.get()) return;
+            if (lower.get() > upper.get() || mc.player.getY() > upper.get()) return;
 
             if (mc.player.getY() < lower.get()) is_pressed = true;
             if (mc.player.getY() > upper.get()) is_pressed = false;

@@ -12,6 +12,7 @@ import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.meteorclient.systems.modules.render.Freecam;
 import meteordevelopment.meteorclient.utils.player.PlayerUtils;
 
+import java.time.Instant;
 import java.lang.Math;
 
 public class NoLeakPos extends HudElement {
@@ -39,6 +40,15 @@ public class NoLeakPos extends HudElement {
         .build()
     );
 
+    private final Setting<Integer> refresh = sgLeak.add(new IntSetting.Builder()
+        .name("refresh")
+        .description("The time in minutes between offset refresh.")
+        .defaultValue(10)
+        .sliderMin(1)
+        .sliderMax(60)
+        .build()
+    );
+
     private final Setting<Keybind> showKeybind = sgLeak.add(new KeybindSetting.Builder()
         .name("show-keybind")
         .description("A key to press to reveal position.")
@@ -63,9 +73,10 @@ public class NoLeakPos extends HudElement {
 
     private double xOff = 0;
     private double zOff = 0;
+    private long unixTime;
 
     public NoLeakPos(HUD hud) {
-        super(hud, "no leak coords", "One time was too many times");
+        super(hud, "No Leak Coords", "One time was too many times");
     }
 
     @Override
@@ -87,7 +98,8 @@ public class NoLeakPos extends HudElement {
 
         double x, y, z;
 
-        if (count % (400 * 2000) == 0 || xOff == 0 || zOff == 0) {
+        unixTime = Instant.now().getEpochSecond();
+        if (unixTime % (60*refresh.get()) == 0 || xOff == 0 || zOff == 0) {
             xOff = randomOffset();
             zOff = randomOffset();
         }
