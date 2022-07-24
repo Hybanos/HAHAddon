@@ -330,7 +330,7 @@ import java.lang.Math;
 
 
 
-        if (spawnMode.get() != SpawnMode.NONE || spawnDistance.get() > dist) {
+        if (spawnMode.get() != SpawnMode.NONE && spawnDistance.get() * 1000 > dist) {
             double angle = Math.atan2(0 - playerX, 0 - playerZ) - Math.toRadians(90);
 
             double circleX = Math.cos(angle) * spawnRadius.get();

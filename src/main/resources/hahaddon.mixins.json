@@ -3,7 +3,8 @@
   "package": "hybanos.addon.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
-      "AbstractBlockMixin"
+      "AbstractBlockMixin",
+      "EntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

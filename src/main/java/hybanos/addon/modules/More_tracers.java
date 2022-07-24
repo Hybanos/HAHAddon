@@ -125,7 +125,7 @@ public class More_tracers extends Module {
 
     private final Setting<BlockPos> navPos = sgNav.add(new BlockPosSetting.Builder()
         .name("Position")
-        .description("Position of the tracer")
+        .description("Position of the tracer.")
         .defaultValue(new BlockPos(0,0,0))
         .visible(nav::get)
         .build()
@@ -181,7 +181,7 @@ public class More_tracers extends Module {
                     event.renderer.line(0, netherY.get(), 0, 0, netherY.get(), -len, highwayColor.get());
                     event.renderer.line(0, netherY.get(), 0, -len, netherY.get(), 0, highwayColor.get());
 
-                    if (overDiag.get()) {
+                    if (netherDiag.get()) {
                         event.renderer.line(0, netherY.get(), 0, len, netherY.get(), len, highwayColor.get());
                         event.renderer.line(0, netherY.get(), 0, len, netherY.get(), -len, highwayColor.get());
                         event.renderer.line(0, netherY.get(), 0, -len, netherY.get(), len, highwayColor.get());
@@ -218,6 +218,9 @@ public class More_tracers extends Module {
 
         WButton multiply = table.add(theme.button("Multiply by 8")).expandX().widget();
         WButton divide = table.add(theme.button("Divide by 8")).expandX().widget();
+
+        multiply.visible = nav.get();
+        divide.visible = nav.get();
 
         multiply.action = () -> navPos.set(new BlockPos(navPos.get().getX() * 8, navPos.get().getY(), navPos.get().getZ() * 8));
         divide.action = () -> navPos.set(new BlockPos(navPos.get().getX() / 8, navPos.get().getY(), navPos.get().getZ() / 8));

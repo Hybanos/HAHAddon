@@ -2,15 +2,19 @@ package hybanos.addon;
 
 import hybanos.addon.modules.Auto_grow;
 import hybanos.addon.modules.Auto_sex;
+import hybanos.addon.modules.Block_rotation;
 import hybanos.addon.modules.More_tracers;
+import hybanos.addon.modules.No_bed_interact;
+import hybanos.addon.modules.SpamP;
 import hybanos.addon.modules.Stay_above;
 import hybanos.addon.modules.StashFinder;
-import hybanos.addon.modules.No_bed_interact;
-import hybanos.addon.modules.Block_rotation;
+import hybanos.addon.modules.Trash_can;
+import hybanos.addon.modules.Photoshoot;
 import hybanos.addon.hud.NoLeakPos;
 import hybanos.addon.hud.Ducko;
 import hybanos.addon.hud.Duck_logo;
 import hybanos.addon.hud.Better_compass;
+import meteordevelopment.meteorclient.gui.utils.SettingsWidgetFactory;
 import meteordevelopment.meteorclient.systems.hud.HUD;
 import meteordevelopment.meteorclient.systems.commands.Commands;
 import meteordevelopment.meteorclient.MeteorClient;
@@ -42,6 +46,9 @@ public class HAHAddon extends MeteorAddon {
         Modules.get().add(new StashFinder());
         Modules.get().add(new No_bed_interact());
         Modules.get().add(new Block_rotation());
+        Modules.get().add(new SpamP());
+        Modules.get().add(new Trash_can());
+        Modules.get().add(new Photoshoot());
 
         // HUD
         HUD hud = meteordevelopment.meteorclient.systems.Systems.get(HUD.class);
