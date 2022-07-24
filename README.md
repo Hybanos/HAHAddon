@@ -11,8 +11,11 @@ Only for 1.18.2 / Meteor 0.4.9
 - Block Rotation   | Randomizes or completely disables texture rotations
 - More Tracers     | Draws some tracers for navigation, I know it's bad
 - No bed Interact  | Prevents you from reseting your spawnpoint, or blowing up
+- Photoshoot       | Locks entity heads and body to your camera or specific pitch/yaw
+- Spam+            | Spams chat from a .txt file
 - Stash Finder     | Copy paste of meteor's stash finder, but with regular blocks
 - Stay Above       | Keeps you in a certain Y level range
+- Trash Can        | Deletes items out of your inventory (actually a good module you need the addon just for this)
 </pre>
 
 ## Hud:
