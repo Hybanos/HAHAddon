@@ -15,7 +15,7 @@ Only for 1.18.2 / Meteor 0.4.9
 - Spam+            | Spams chat from a .txt file
 - Stash Finder     | Copy paste of meteor's stash finder, but with regular blocks
 - Stay Above       | Keeps you in a certain Y level range
-- Trash Can        | Deletes items in your inventory (actually a good module you need the addon just for this)
+- Trash Can        | Deletes items in your inventory (you need the addon just for this)
 </pre>
 
 ## Hud:
