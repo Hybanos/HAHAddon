@@ -15,9 +15,9 @@ import java.lang.Math;
 
 @Mixin(AbstractBlock.class)
 public class AbstractBlockMixin {
-    int xOff = (int)(Math.random() * 20 - 10);
-    int yOff = (int)(Math.random() * 20 - 10);
-    int zOff = (int)(Math.random() * 20 - 10);
+    int xOff = (int)(Math.random() * 20000000 - 10000000);
+    int yOff = (int)(Math.random() * 20000000 - 10000000);
+    int zOff = (int)(Math.random() * 20000000 - 10000000);
 
     @Inject(method="getRenderingSeed", at=@At("HEAD"), cancellable = true)
     private void onGetRenderingSeed(BlockState state, BlockPos pos, CallbackInfoReturnable<Long> info) {

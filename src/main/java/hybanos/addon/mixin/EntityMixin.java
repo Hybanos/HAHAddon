@@ -18,7 +18,7 @@ import java.lang.Math;
 public class EntityMixin {
 
     @Inject(method="tick", at=@At("TAIL"))
-    private void onTick(CallbackInfo ci) {
+    private void onTick(CallbackInfo info) {
         if (Modules.get().isActive(Photoshoot.class) && (!(((Entity)(Object)this) instanceof ClientPlayerEntity) || Modules.get().get(Photoshoot.class).getPlayer()) && Modules.get().get(Photoshoot.class).getEntities().getBoolean(((Entity)(Object)this).getType())) {
 
             int mode =  Modules.get().get(Photoshoot.class).getMode();

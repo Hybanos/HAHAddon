@@ -93,7 +93,7 @@ public class StashFinder extends Module {
     public List<Chunk> chunks = new ArrayList<>();
 
     public StashFinder() {
-        super(HAHAddon.CATEGORY, "Stash Finder", "stash finder but also for regular blocks");
+        super(HAHAddon.SKID, "Stash Finder", "stash finder but also for regular blocks");
     }
 
     @Override

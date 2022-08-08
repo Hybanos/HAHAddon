@@ -110,7 +110,7 @@ public class Stay_above extends Module {
         }
         if ( mc.player.isOnGround()) return;
         if (jump_active.get()) {
-            if (lower.get() > upper.get() || mc.player.getY() > upper.get()) return;
+            if (lower.get() > upper.get()) return;
 
             if (mc.player.getY() < lower.get()) is_pressed = true;
             if (mc.player.getY() > upper.get()) is_pressed = false;

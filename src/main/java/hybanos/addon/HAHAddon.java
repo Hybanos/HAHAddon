@@ -1,15 +1,6 @@
 package hybanos.addon;
 
-import hybanos.addon.modules.Auto_grow;
-import hybanos.addon.modules.Auto_sex;
-import hybanos.addon.modules.Block_rotation;
-import hybanos.addon.modules.More_tracers;
-import hybanos.addon.modules.No_bed_interact;
-import hybanos.addon.modules.SpamP;
-import hybanos.addon.modules.Stay_above;
-import hybanos.addon.modules.StashFinder;
-import hybanos.addon.modules.Trash_can;
-import hybanos.addon.modules.Photoshoot;
+import hybanos.addon.modules.*;
 import hybanos.addon.hud.NoLeakPos;
 import hybanos.addon.hud.Ducko;
 import hybanos.addon.hud.Duck_logo;
@@ -30,6 +21,7 @@ import java.lang.invoke.MethodHandles;
 public class HAHAddon extends MeteorAddon {
 	public static final Logger LOG = LoggerFactory.getLogger(HAHAddon.class);
 	public static final Category CATEGORY = new Category("HAHA", Items.GOLDEN_CARROT.getDefaultStack());
+    public static final Category SKID = new Category("HEHE", Items.COOKIE.getDefaultStack());
 
 	@Override
 	public void onInitialize() {
@@ -49,6 +41,9 @@ public class HAHAddon extends MeteorAddon {
         Modules.get().add(new SpamP());
         Modules.get().add(new Trash_can());
         Modules.get().add(new Photoshoot());
+        Modules.get().add(new Highway_Builder());
+        Modules.get().add(new Villager_Aura());
+        Modules.get().add(new F3_crosshair());
 
         // HUD
         HUD hud = meteordevelopment.meteorclient.systems.Systems.get(HUD.class);
@@ -61,5 +56,6 @@ public class HAHAddon extends MeteorAddon {
 	@Override
 	public void onRegisterCategories() {
 		Modules.registerCategory(CATEGORY);
+        Modules.registerCategory(SKID);
 	}
 }
