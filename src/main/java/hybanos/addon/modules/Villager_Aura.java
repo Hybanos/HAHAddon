@@ -662,7 +662,8 @@ public class Villager_Aura extends Module {
         // Weaponsmith
 
         // Mason
-        item == Items.CLAY ||
+        item == Items.STONE ||
+        item == Items.CLAY_BALL ||
         item == Items.GRAVEL ||
         item == Items.DIORITE ||
         item == Items.GRANITE ||
