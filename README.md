@@ -24,7 +24,7 @@ Only for 1.18.2 / Meteor 0.4.9
 Made by Cookie:
 - AntiAntiAFK       | Disconnects you after a certain time
 - AntiMob           | Disconnects you if an entity is nearby
-- AutoWalk+         | AutoWalk with delay and more dirrections
+- AutoWalk+         | AutoWalk with delay and more directions
 - Duck Icon         | Changes the windows icon to a duck
 </pre>
 
