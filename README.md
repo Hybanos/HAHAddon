@@ -13,7 +13,7 @@ Only for 1.18.2 / Meteor 0.4.9
 - More Tracers      | Draws some tracers for navigation, I know it's bad
 - No Bed Interact   | Prevents you from reseting your spawnpoint, or blowing up
 - Photoshoot        | Locks entity heads and body to your camera or specific pitch/yaw
-- RedstonePlacement | Helps you place boths with rotation
+- RedstonePlacement | Helps you place blocks with rotation
 - SCAFFOLD          | Bigger, more buggy scaffold
 - Spam+             | Spams chat from a .txt file
 - Stay Above        | Keeps you in a certain Y level range
