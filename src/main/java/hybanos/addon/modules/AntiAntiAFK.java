@@ -1,10 +1,10 @@
 package hybanos.addon.modules;
 
 import hybanos.addon.HAHAddon;
+import net.minecraft.network.packet.s2c.play.DisconnectS2CPacket;
 import meteordevelopment.meteorclient.events.game.GameJoinedEvent;
 import meteordevelopment.meteorclient.events.meteor.KeyEvent;
 import meteordevelopment.meteorclient.events.world.TickEvent;
-import net.minecraft.network.packet.s2c.play.DisconnectS2CPacket;
 import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.orbit.EventHandler;
@@ -16,7 +16,7 @@ public class AntiAntiAFK extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
     public AntiAntiAFK() {
-        super(HAHAddon.COOKIE, "Anti Anti AFK", "Automatically disconnects you after a certain time.");
+        super(HAHAddon.CATEGORY, "Anti Anti AFK", "Automatically disconnects you after a certain time.");
     }
 
     private final Setting<Integer> time = sgGeneral.add(new IntSetting.Builder()
@@ -28,12 +28,20 @@ public class AntiAntiAFK extends Module {
         .build()
     );
 
-    private final Setting<Boolean> toggleOff = sgGeneral.add(new BoolSetting.Builder()
-        .name("toggle-off")
-        .description("Disables Anti Anti AFK after usage.")
+    private final Setting<Boolean> noinput = sgGeneral.add(new BoolSetting.Builder()
+        .name("No Input")
+        .description("Disconnects you after the set time if no input was made until then.")
         .defaultValue(false)
         .build()
     );
+
+    private final Setting<Boolean> toggleOff = sgGeneral.add(new BoolSetting.Builder()
+        .name("Toggle off")
+        .description("Disables Anti Anti AFK after usage.")
+        .defaultValue(true)
+        .build()
+    );
+
 
     private int timer;
 
@@ -43,20 +51,21 @@ public class AntiAntiAFK extends Module {
     }
 
     @EventHandler
-    public void onKeyPress(KeyEvent event) {
-        info("key : " + event.key + " mod : " + event.modifiers + " action : " + event.action);
+    public void KeyAction(KeyEvent event) {
+		if (noinput.get()) {
+            timer = 0;
+        }
     }
 
     @EventHandler
     private void onTick(TickEvent.Post event) {
-        
-        if (timer < time.get() * 20 * 60){
-            timer++;			
-            return;	
-        } else {
-            mc.player.networkHandler.onDisconnect(new DisconnectS2CPacket(new LiteralText("[Anti Anti AFK] " + time.get() + " minutes have passed.")));
-            if (toggleOff.get()) this.toggle();
-            timer = 0;
-        }	
+            if (timer < time.get() * 20 * 60){
+                timer++;			
+                return;	
+            } else {
+                mc.player.networkHandler.onDisconnect(new DisconnectS2CPacket(new LiteralText("[Anti Anti AFK] " + time.get() + " minutes have passed.")));
+                if (toggleOff.get()) this.toggle();
+                timer = 0;
+            }
+        }
     }
-}
