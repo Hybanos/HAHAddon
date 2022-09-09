@@ -88,7 +88,6 @@ public class Auto_sex extends Module {
 
     private final List<AbstractClientPlayerEntity> players = new ArrayList<>();
     private int tickcount, timer, sneak_timer;
-    private boolean sneaking;
     private boolean first;
     private String player_name;
 

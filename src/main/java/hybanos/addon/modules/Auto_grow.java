@@ -6,7 +6,6 @@ import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.utils.player.FindItemResult;
 import meteordevelopment.meteorclient.utils.player.InvUtils;
-import meteordevelopment.meteorclient.utils.world.BlockIterator;
 import meteordevelopment.orbit.EventHandler;
 import net.minecraft.util.Hand;
 import net.minecraft.item.Items;
@@ -14,7 +13,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.BlockPos;
 
@@ -117,7 +115,7 @@ public class Auto_grow extends Module {
     private void boneMeal(BlockPos blockpos, FindItemResult bone_meal, Direction dir) {
         if (hands.get()) InvUtils.swap(bone_meal.slot(), true);
         BlockHitResult result = new BlockHitResult(new Vec3d(blockpos.getX() + 0.5, blockpos.getY() + 0.1, blockpos.getZ() + 0.5), dir, blockpos, true);
-        ActionResult res = mc.interactionManager.interactBlock(mc.player, mc.world, Hand.MAIN_HAND, result);
+        mc.interactionManager.interactBlock(mc.player, mc.world, Hand.MAIN_HAND, result);
     }
 
     // thanks eureka :)

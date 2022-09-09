@@ -1,10 +1,8 @@
 package hybanos.addon.modules;
 
 import hybanos.addon.HAHAddon;
-import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.Module;
-import meteordevelopment.meteorclient.systems.modules.Modules;
 
 public class F3_crosshair extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();

@@ -119,9 +119,9 @@ public class Villager_Aura extends Module {
 
     private final Setting<Boolean> debug = sgChat.add(new BoolSetting.Builder()
         .name("debug")
-        .description("if the game crashes it's because of betterchat (fr)")
+        .description("don't mind me")
         .defaultValue(false)
-        .visible(() -> false)
+        .visible(() -> true)
         .build()
     );
 
@@ -202,7 +202,7 @@ public class Villager_Aura extends Module {
         // buying / selling
         if (mc.currentScreen instanceof MerchantScreen) {
             boolean success;
-            MerchantScreenHandler handler = ((MerchantScreenHandler)((HandledScreenAccessor)mc.currentScreen).getHandler());
+            MerchantScreenHandler handler = ((MerchantScreenHandler)((HandledScreenAccessor<?>)mc.currentScreen).getHandler());
             if (invFull()) return;
             success = trySell(handler);
             if (!success) success = tryBuy(handler);
@@ -350,6 +350,7 @@ public class Villager_Aura extends Module {
             newTotal = newTotal + InvUtils.find(item).count();
         }
         newTotal = newTotal + InvUtils.find(Items.EMERALD).count();
+        if (debug.get()) info("" + newTotal);
 
         if (newTotal > invTotal) {
             if (debug.get()) info("reset restock");
@@ -609,7 +610,7 @@ public class Villager_Aura extends Module {
         item == Items.WRITABLE_BOOK ||
 
         // Armorer
-        item == Items.IRON_ORE ||
+        item == Items.IRON_INGOT ||
         item == Items.LAVA_BUCKET ||
         item == Items.DIAMOND ||
 
@@ -662,7 +663,7 @@ public class Villager_Aura extends Module {
         // Weaponsmith
 
         // Mason
-        item == Items.CLAY ||
+        item == Items.CLAY_BALL ||
         item == Items.GRAVEL ||
         item == Items.DIORITE ||
         item == Items.GRANITE ||
@@ -670,6 +671,7 @@ public class Villager_Aura extends Module {
         item == Items.POLISHED_DIORITE ||
         item == Items.POLISHED_GRANITE ||
         item == Items.POLISHED_ANDESITE ||
+        item == Items.STONE ||
         item == Items.QUARTZ;
     }
 }

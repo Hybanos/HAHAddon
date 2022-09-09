@@ -1,8 +1,6 @@
 package hybanos.addon.mixin;
 
-import hybanos.addon.HAHAddon;
 import hybanos.addon.modules.Photoshoot;
-import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;

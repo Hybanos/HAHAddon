@@ -8,7 +8,7 @@
     "Hybanos"
   ],
   "contact": {
-    "repo": "https://github.com/MeteorDevelopment/meteor-addon-template"
+    "repo": "https://github.com/Hybanos/HAHAddon"
   },
   "icon": "assets/template/icon.png",
   "environment": "client",
@@ -26,7 +26,7 @@
   },
   "depends": {
     "java": ">=17",
-    "minecraft": ">=${mc_version}",
-    "meteor-client": "*"
+    "minecraft": ">=1.18.2",
+    "meteor-client": ">=0.4.8"
   }
 }

@@ -5,8 +5,6 @@ import meteordevelopment.meteorclient.events.entity.player.InteractBlockEvent;
 import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.orbit.EventHandler;
-import meteordevelopment.orbit.EventPriority;
-import net.minecraft.block.Block;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.RespawnAnchorBlock;
 import net.minecraft.util.hit.BlockHitResult;
@@ -79,13 +77,13 @@ public class No_bed_interact extends Module {
                 else return false;
             }
             case Nether -> {
-                if ((mc.world.getBlockState(pos).getBlock() instanceof BedBlock && bedOW.get()) ||
-                (mc.world.getBlockState(pos).getBlock() instanceof RespawnAnchorBlock && anchorOW.get())) return true;
+                if ((mc.world.getBlockState(pos).getBlock() instanceof BedBlock && bedNether.get()) ||
+                (mc.world.getBlockState(pos).getBlock() instanceof RespawnAnchorBlock && anchorNether.get())) return true;
                 else return false;
             }
             case End -> {
-                if ((mc.world.getBlockState(pos).getBlock() instanceof BedBlock && bedOW.get()) ||
-                (mc.world.getBlockState(pos).getBlock() instanceof RespawnAnchorBlock && anchorOW.get())) return true;
+                if ((mc.world.getBlockState(pos).getBlock() instanceof BedBlock && bedEnd.get()) ||
+                (mc.world.getBlockState(pos).getBlock() instanceof RespawnAnchorBlock && anchorEnd.get())) return true;
                 else return false;
             }
         }

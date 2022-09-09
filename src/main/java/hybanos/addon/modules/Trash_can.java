@@ -3,17 +3,12 @@ package hybanos.addon.modules;
 import hybanos.addon.HAHAddon;
 import hybanos.addon.settings.Item2IntMapSetting;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import com.google.common.collect.Lists;
-import hybanos.addon.HAHAddon;
-import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.systems.modules.Module;
-import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.utils.player.InvUtils;
 import meteordevelopment.meteorclient.utils.player.FindItemResult;
 import meteordevelopment.meteorclient.gui.GuiTheme;
-import meteordevelopment.meteorclient.gui.widgets.WLabel;
 import meteordevelopment.meteorclient.gui.widgets.WWidget;
 import meteordevelopment.meteorclient.gui.widgets.containers.WVerticalList;
 import meteordevelopment.orbit.EventHandler;
@@ -24,11 +19,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.c2s.play.ClickSlotC2SPacket;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.slot.Slot;
 import net.minecraft.screen.slot.SlotActionType;
-import net.minecraft.util.collection.DefaultedList;
-
-import java.util.List;
 
 public class Trash_can extends Module {
 
@@ -71,7 +62,7 @@ public class Trash_can extends Module {
         id = dataSlotToNetworkSlot(id);
 
         handler.onSlotClick(id, 50, SlotActionType.SWAP, mc.player);
-        Int2ObjectMap<ItemStack> stacks = new Int2ObjectOpenHashMap();
+        Int2ObjectMap<ItemStack> stacks = new Int2ObjectOpenHashMap<ItemStack>();
 
         if (!(mc.currentScreen instanceof HandledScreen<?>)) {
             mc.getNetworkHandler().sendPacket(new ClickSlotC2SPacket(0, handler.getRevision(), id, button, SlotActionType.SWAP, handler.getCursorStack().copy(), stacks));
@@ -97,11 +88,11 @@ public class Trash_can extends Module {
         @Override
         public WWidget getWidget(GuiTheme theme) {
             WVerticalList list = theme.verticalList();
-            WLabel label = list.add(theme.label("Select a number for the item you want to delete,")).widget();
-            WLabel label1 = list.add(theme.label("when the number of item in your inventory is greater")).widget();
-            WLabel label2 = list.add(theme.label("than the number you selected, a SLOT will be deleted.")).widget();
-            WLabel label3 = list.add(theme.label("(0 to disable)")).widget();
-            WLabel label4 = list.add(theme.label("Be careful.")).widget();
+            list.add(theme.label("Select a number for the item you want to delete,")).widget();
+            list.add(theme.label("when the number of item in your inventory is greater")).widget();
+            list.add(theme.label("than the number you selected, a SLOT will be deleted.")).widget();
+            list.add(theme.label("(0 to disable)")).widget();
+            list.add(theme.label("Be careful.")).widget();
 
             return list;
         }

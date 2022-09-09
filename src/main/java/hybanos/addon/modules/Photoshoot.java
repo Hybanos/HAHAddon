@@ -2,13 +2,9 @@ package hybanos.addon.modules;
 
 import hybanos.addon.HAHAddon;
 import it.unimi.dsi.fastutil.objects.Object2BooleanMap;
-import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.settings.*;
-import meteordevelopment.meteorclient.events.world.TickEvent;
-import meteordevelopment.orbit.EventHandler;
 import net.minecraft.entity.EntityType;
-import net.minecraft.util.math.BlockPos;
 
 public class Photoshoot extends Module {
     private SettingGroup sgGeneral = settings.getDefaultGroup();
@@ -77,7 +73,7 @@ public class Photoshoot extends Module {
         return distance.get();
     }
 
-    public Object2BooleanMap getEntities() {
+    public Object2BooleanMap<?> getEntities() {
         return entities.get();
     }
 

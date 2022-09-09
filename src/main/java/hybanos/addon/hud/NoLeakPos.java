@@ -3,7 +3,6 @@ package hybanos.addon.hud;
 import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.orbit.EventHandler;
 import meteordevelopment.meteorclient.events.game.GameJoinedEvent;
-import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.systems.hud.HUD;
 import meteordevelopment.meteorclient.systems.hud.modules.HudElement;
 import meteordevelopment.meteorclient.systems.hud.HudRenderer;
@@ -65,9 +64,6 @@ public class NoLeakPos extends HudElement {
     private double left2Width;
     private String right2;
 
-    private double xOffset;
-    private double yOffset;
-    private double zOffset;
 
     private double count = 0;
 
