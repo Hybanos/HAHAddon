@@ -1,6 +1,5 @@
 package hybanos.addon.mixin;
 
-import hybanos.addon.modules.F3_crosshair;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.InGameHud;
@@ -10,6 +9,9 @@ import net.minecraft.client.option.GameOptions;
 import net.minecraft.world.GameMode;
 import net.minecraft.util.math.Vec3f;
 import com.mojang.blaze3d.systems.RenderSystem;
+
+import hybanos.addon.modules.haha.F3_crosshair;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

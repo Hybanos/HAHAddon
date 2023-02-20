@@ -1,6 +1,5 @@
 package hybanos.addon.mixin;
 
-import hybanos.addon.modules.Block_rotation;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
@@ -10,6 +9,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import hybanos.addon.modules.haha.Block_rotation;
 
 import java.lang.Math;
 

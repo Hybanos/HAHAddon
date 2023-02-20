@@ -1,20 +1,29 @@
 package hybanos.addon.hud;
 
+import hybanos.addon.HAHAddon;
 import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.orbit.EventHandler;
 import meteordevelopment.meteorclient.events.game.GameJoinedEvent;
-import meteordevelopment.meteorclient.systems.hud.HUD;
-import meteordevelopment.meteorclient.systems.hud.modules.HudElement;
 import meteordevelopment.meteorclient.systems.hud.HudRenderer;
+import meteordevelopment.meteorclient.systems.hud.HudElementInfo;
+import meteordevelopment.meteorclient.systems.hud.Alignment;
+import meteordevelopment.meteorclient.systems.hud.HudElement;
 import meteordevelopment.meteorclient.utils.misc.Keybind;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.meteorclient.systems.modules.render.Freecam;
 import meteordevelopment.meteorclient.utils.player.PlayerUtils;
+import meteordevelopment.meteorclient.utils.render.color.Color;
+import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 
 import java.time.Instant;
 import java.lang.Math;
 
+import static meteordevelopment.meteorclient.MeteorClient.mc;
+
 public class NoLeakPos extends HudElement {
+    public static final HudElementInfo<NoLeakPos> INFO = new HudElementInfo<>(HAHAddon.HUD_GROUP, "No Leak Coords", "One time was too many times.", NoLeakPos::new);
+    private static final Color WHITE = new Color();
+    
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
     private final SettingGroup sgLeak = settings.createGroup("Anti leak");
 
@@ -29,6 +38,27 @@ public class NoLeakPos extends HudElement {
         .name("opposite-dimension")
         .description("Displays the coords of the opposite dimension (Nether or Overworld).")
         .defaultValue(false)
+        .build()
+    );
+
+    private final Setting<Boolean> textShadow = sgGeneral.add(new BoolSetting.Builder()
+        .name("text-shadow")
+        .description("Renders shadow behind text.")
+        .defaultValue(false)
+        .build()
+    );
+
+    private final Setting<SettingColor> leftColor = sgGeneral.add(new ColorSetting.Builder()
+        .name("west color")
+        .description("Color of the west text.")
+        .defaultValue(new SettingColor(255,255,255,255))
+        .build()
+    );
+
+    private final Setting<SettingColor> rightColor = sgGeneral.add(new ColorSetting.Builder()
+        .name("west color")
+        .description("Color of the west text.")
+        .defaultValue(new SettingColor(73,107,255, 255))
         .build()
     );
 
@@ -64,19 +94,23 @@ public class NoLeakPos extends HudElement {
     private double left2Width;
     private String right2;
 
-
-    private double count = 0;
+    private int count = 0;
 
     private double xOff = 0;
     private double zOff = 0;
     private long unixTime;
 
-    public NoLeakPos(HUD hud) {
-        super(hud, "No Leak Coords", "One time was too many times");
+    public NoLeakPos() {
+        super(INFO);
     }
 
     @Override
-    public void update(HudRenderer renderer) {
+    public void setSize(double h, double w) {
+        super.setSize(h, w);
+    }
+
+    @Override
+    public void tick(HudRenderer renderer) {
         left1Width = renderer.textWidth(left1);
         left2 = null;
         right2 = null;
@@ -86,7 +120,7 @@ public class NoLeakPos extends HudElement {
 
         if (isInEditor()) {
             right1 = "0, 0, 0";
-            box.setSize(left1Width + renderer.textWidth(right1), height);
+            setSize(left1Width + renderer.textWidth(right1), height);
             return;
         }
 
@@ -109,7 +143,7 @@ public class NoLeakPos extends HudElement {
             z = freecam.isActive() ? mc.gameRenderer.getCamera().getPos().z : mc.player.getZ();
 
             if (noLeak.get() && !showKeybind.get().isPressed()) {
-                if (mc.world.getDimension().isRespawnAnchorWorking()) {
+                if (mc.world.getDimension().respawnAnchorWorks()) {
                     x += xOff / 8;
                     z += zOff / 8;
                 } else {
@@ -126,7 +160,7 @@ public class NoLeakPos extends HudElement {
             z = freecam.isActive() ? mc.gameRenderer.getCamera().getBlockPos().getZ() : mc.player.getBlockZ();
 
             if (noLeak.get() && !showKeybind.get().isPressed()) {
-                if (mc.world.getDimension().isRespawnAnchorWorking()) {
+                if (mc.world.getDimension().respawnAnchorWorks()) {
                     x += xOff / 8;
                     z += zOff / 8;
                 } else {
@@ -162,25 +196,24 @@ public class NoLeakPos extends HudElement {
             width = Math.max(width, left2Width + renderer.textWidth(right2));
         }
 
-        box.setSize(width, height);
     }
 
     @Override
     public void render(HudRenderer renderer) {
-        double x = box.getX();
-        double y = box.getY();
+        double x = this.getX();
+        double y = this.getY();
 
-        double xOffset = box.alignX(left1Width + renderer.textWidth(right1));
+        double xOffset = this.alignX(left1Width + renderer.textWidth(right1), Alignment.Auto);
         double yOffset = 0;
 
         if (left2 != null) {
-            renderer.text(left2, x, y, hud.primaryColor.get());
-            renderer.text(right2, x + left2Width, y, hud.secondaryColor.get());
+            renderer.text(left2, x, y, leftColor.get(), textShadow.get());
+            renderer.text(right2, x + left2Width, y, rightColor.get(), textShadow.get());
             yOffset = renderer.textHeight() + 2;
         }
 
-        renderer.text(left1, x + xOffset, y + yOffset, hud.primaryColor.get());
-        renderer.text(right1, x + xOffset + left1Width, y + yOffset, hud.secondaryColor.get());
+        renderer.text(left1, x + xOffset, y + yOffset, leftColor.get(), textShadow.get());
+        renderer.text(right1, x + xOffset + left1Width, y + yOffset, rightColor.get(), textShadow.get());
     }
 
     @EventHandler

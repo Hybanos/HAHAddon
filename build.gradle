@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '0.10-SNAPSHOT'
+    id 'fabric-loom' version '0.12-SNAPSHOT'
 }
 
 sourceCompatibility = targetCompatibility = JavaVersion.VERSION_17
@@ -21,13 +21,21 @@ repositories {
 }
 
 dependencies {
+
     // Fabric
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
+    //
+    modImplementation "baritone:fabric:${project.baritone_version}"
+    include "baritone:fabric:${project.baritone_version}"
+
     // Meteor
     modImplementation "meteordevelopment:meteor-client:${project.meteor_version}"
+
+
+
 }
 
 processResources {
