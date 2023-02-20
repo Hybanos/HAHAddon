@@ -1,17 +1,22 @@
 package hybanos.addon.hud;
 
+import hybanos.addon.HAHAddon;
 import meteordevelopment.meteorclient.renderer.GL;
 import meteordevelopment.meteorclient.renderer.Renderer2D;
 import meteordevelopment.meteorclient.settings.*;
-import meteordevelopment.meteorclient.systems.hud.HUD;
-import meteordevelopment.meteorclient.systems.hud.modules.HudElement;
 import meteordevelopment.meteorclient.systems.hud.HudRenderer;
+import meteordevelopment.meteorclient.systems.hud.HudElementInfo;
+import meteordevelopment.meteorclient.systems.hud.HudElement;
 import meteordevelopment.meteorclient.utils.render.color.RainbowColor;
 import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 import meteordevelopment.meteorclient.utils.Utils;
 import net.minecraft.util.Identifier;
 
+import static meteordevelopment.meteorclient.MeteorClient.mc;
+
 public class Duck_logo extends HudElement {
+    public static final HudElementInfo<Duck_logo> INFO = new HudElementInfo<>(HAHAddon.HUD_GROUP, "Duck Logo", "Shows the duck logo.", Duck_logo::new);
+
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
     private final Setting<Double> scale = sgGeneral.add(new DoubleSetting.Builder()
@@ -48,29 +53,30 @@ public class Duck_logo extends HudElement {
         .build()
     );
 
-    public Duck_logo(HUD hud) {
-        super(hud, "Duck Logo", "Shows the duck logo.");
+    public Duck_logo() {
+        super(INFO);
     }
 
     private final Identifier DUCK = new Identifier("hahaddon", "textures/monners.png");
     private static final RainbowColor RAINBOW = new RainbowColor();
 
     @Override
-    public void update(HudRenderer renderer) {
-        box.setSize(512 * scale.get(), 512 * scale.get());
+    public void setSize(double h, double w) {
+        super.setSize(512 * scale.get(), 512 * scale.get());
     }
 
     @Override
     public void render(HudRenderer renderer) {
+        setSize(1,1);
         if (!Utils.canUpdate()) return;
         GL.bindTexture(DUCK);
         Renderer2D.TEXTURE.begin();
 
         if (chroma.get()) {
             RAINBOW.setSpeed(chromaSpeed.get() / 100);
-            Renderer2D.TEXTURE.texQuad(box.getX(), box.getY(), box.width, box.height, RAINBOW.getNext());
+            Renderer2D.TEXTURE.texQuad(this.getX(), this.getY(), this.getWidth(), this.getHeight(), RAINBOW.getNext());
         } else {
-            Renderer2D.TEXTURE.texQuad(box.getX(), box.getY(), box.width, box.height, color.get());
+            Renderer2D.TEXTURE.texQuad(this.getX(), this.getY(), this.getWidth(), this.getHeight(), color.get());
         }
 
         Renderer2D.TEXTURE.render(null);

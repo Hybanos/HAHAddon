@@ -1,11 +1,12 @@
 package hybanos.addon.hud;
 
+import hybanos.addon.HAHAddon;
 import meteordevelopment.meteorclient.MeteorClient;
-import meteordevelopment.meteorclient.renderer.Renderer2D;
 import meteordevelopment.meteorclient.settings.*;
-import meteordevelopment.meteorclient.systems.hud.HUD;
-import meteordevelopment.meteorclient.systems.hud.modules.HudElement;
+import meteordevelopment.meteorclient.systems.hud.Hud;
 import meteordevelopment.meteorclient.systems.hud.HudRenderer;
+import meteordevelopment.meteorclient.systems.hud.HudElementInfo;
+import meteordevelopment.meteorclient.systems.hud.HudElement;
 import meteordevelopment.meteorclient.utils.render.color.Color;
 import meteordevelopment.meteorclient.utils.player.ChatUtils;
 import meteordevelopment.meteorclient.events.packets.PacketEvent;
@@ -18,9 +19,13 @@ import java.time.Instant;
 import java.lang.Math;
 import java.util.*;
 
+import static meteordevelopment.meteorclient.MeteorClient.mc;
+
 // TODO, optimise, not check for null chunks
 
 public class New_chunks extends HudElement {
+    public static final HudElementInfo<New_chunks> INFO = new HudElementInfo<>(HAHAddon.HUD_GROUP, "New Chunks", "Brain-powered processing.", New_chunks::new);
+
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
     private final SettingGroup sgBar = settings.createGroup("Timing bar");
 
@@ -93,13 +98,15 @@ public class New_chunks extends HudElement {
         .build()
     );
 
-    public New_chunks(HUD hud) {
-        super(hud, "New Chunks", "Brain-powered processing.");
+    public New_chunks() {
+        super(INFO);
         MeteorClient.EVENT_BUS.subscribe(this);
     }
 
     private double width = 512;
     private double height = 512;
+    private double boxX = this.getX();
+    private double boxY = this.getY();
 
     public Cookie grid = new Cookie(size.get() * 2 + 1);
     public TimeBar timeBar = new TimeBar();
@@ -130,21 +137,22 @@ public class New_chunks extends HudElement {
     }
 
     @Override
-    public void update(HudRenderer renderer) {
-        box.setSize(width * scale.get(), height * scale.get());
+    public void setSize(double w, double h) {
+        super.setSize(width * scale.get(), height * scale.get());
     }
 
     @Override
-    public void render(HudRenderer renderer) {
-
+    public void render(HudRenderer renderer) {  
+        setSize(1,1);
         if (mc.player == null || mc.world == null) return;
 
-        double x = box.getX();
-        double y = box.getY();
-        Double chunkSize = (width*scale.get())/(size.get()*2 + 1);
-        updatePos();
+        boxX = this.getX();
+        boxY = this.getY();
 
-        Renderer2D.COLOR.begin();
+        double x = boxX;
+        double y = boxY;
+        Double chunkSize = (width*scale.get())/(size.get()*2 + 1);
+        updateChunkPos();
 
         for (int i = 0; i < grid.size(); i++) {
             for (int j = 0; j < grid.size(); j++) {
@@ -157,16 +165,15 @@ public class New_chunks extends HudElement {
                 if (grid.getValue(i, j) == -1) bg = 0;
                 Color color = new Color(gen, gen, gen, bg);
 
-                Renderer2D.COLOR.quad(localX, localY, chunkSize, chunkSize, color);
+                renderer.quad(localX, localY, chunkSize, chunkSize, color);
                 if (i == j && i == (grid.size() - 1) / 2 + 1) {
-                    Renderer2D.COLOR.quad(localX, localY, chunkSize, chunkSize, new Color(255, 71, 105,255));
+                    renderer.quad(localX, localY, chunkSize, chunkSize, new Color(255, 71, 105,255));
                 }
             }
         }
 
-        timeBar.render();
+        timeBar.render(renderer);
 
-        Renderer2D.COLOR.render(null);
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -202,7 +209,7 @@ public class New_chunks extends HudElement {
         }
     }
 
-    private void updatePos(){
+    private void updateChunkPos(){
         posX = mc.player.getPos().getX();
         posZ = mc.player.getPos().getZ();
 
@@ -403,16 +410,16 @@ public class New_chunks extends HudElement {
             number = barNumber.get();
         }
 
-        public void render() {
-            double x = box.getX();
-            double y = box.getY();
-
+        public void render(HudRenderer renderer) {
+            double x = boxX;
+            double y = boxY;
+            
             double square = height * scale.get();
 
             Color left = new Color(255, 255, 255,255);
             Color right = new Color(0, 0, 0,255);
 
-            Renderer2D.COLOR.quad(x, y + square + 20, square, 20, left, right, right, left);
+            renderer.quad(x, y + square + 20, square, 20, left, right, right, left);
 
             Color timeColor = new Color(255, 71, 105, 150);
 
@@ -425,14 +432,14 @@ public class New_chunks extends HudElement {
 
                 xTime = Math.min(square - 2, xTime);
 
-                Renderer2D.COLOR.quad(xTime, yTime, 4, 30, timeColor);
+                renderer.quad(xTime, yTime, 4, 30, timeColor);
             }
 
             Color color = new Color(255, 71, 105, 255);
             double xThre = x + ((double)trigger.get()) / upper * square / lower - 2;
             double yThre = y + square + 20 - 10;
 
-            Renderer2D.COLOR.quad(xThre, yThre, 4, 40, color);
+            renderer.quad(xThre, yThre, 4, 40, color);
         }
     }
 }

@@ -1,6 +1,5 @@
 package hybanos.addon.mixin;
 
-import hybanos.addon.modules.Photoshoot;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
@@ -9,6 +8,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import hybanos.addon.modules.haha.Photoshoot;
 
 import java.lang.Math;
 

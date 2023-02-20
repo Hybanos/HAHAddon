@@ -1,7 +1,6 @@
 package hybanos.addon.settings;
 
 
-import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.gui.DefaultSettingsWidgetFactory;
 import meteordevelopment.meteorclient.gui.GuiTheme;
 import meteordevelopment.meteorclient.gui.widgets.containers.WTable;
