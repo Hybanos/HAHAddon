@@ -23,7 +23,7 @@ import static meteordevelopment.meteorclient.MeteorClient.mc;
 public class NoLeakPos extends HudElement {
     public static final HudElementInfo<NoLeakPos> INFO = new HudElementInfo<>(HAHAddon.HUD_GROUP, "No Leak Coords", "One time was too many times.", NoLeakPos::new);
     private static final Color WHITE = new Color();
-    
+
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
     private final SettingGroup sgLeak = settings.createGroup("Anti leak");
 
@@ -202,6 +202,10 @@ public class NoLeakPos extends HudElement {
     public void render(HudRenderer renderer) {
         double x = this.getX();
         double y = this.getY();
+
+        if (right1 == null) {
+            right1 = "0, 0, 0";
+        }
 
         double xOffset = this.alignX(left1Width + renderer.textWidth(right1), Alignment.Auto);
         double yOffset = 0;

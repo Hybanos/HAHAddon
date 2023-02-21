@@ -24,7 +24,7 @@ public class Duck_logo extends HudElement {
         .description("The scale of the logo.")
         .defaultValue(0.5)
         .min(0.1)
-        .sliderRange(0.1, 5)
+        .sliderRange(0.1, 1)
         .build()
     );
 

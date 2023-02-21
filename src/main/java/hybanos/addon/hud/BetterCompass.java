@@ -75,7 +75,7 @@ import static meteordevelopment.meteorclient.MeteorClient.mc;
     private final Setting<Double> slide = sgText.add(new DoubleSetting.Builder()
         .name("text offset")
         .description("Moves the text slightly.")
-        .defaultValue(-20)
+        .defaultValue(-13.5)
         .sliderMin(-50)
         .sliderMax(50)
         .visible(() -> textRender.get() != TextRender.NONE)
@@ -85,7 +85,7 @@ import static meteordevelopment.meteorclient.MeteorClient.mc;
     private final Setting<Double> xOffText = sgText.add(new DoubleSetting.Builder()
         .name("X offset")
         .description("Moves the text slightly.")
-        .defaultValue(0)
+        .defaultValue(1.55)
         .sliderMin(-50)
         .sliderMax(50)
         .visible(() -> textRender.get() != TextRender.NONE)
@@ -95,7 +95,7 @@ import static meteordevelopment.meteorclient.MeteorClient.mc;
     private final Setting<Double> yOffText = sgText.add(new DoubleSetting.Builder()
         .name("Y offset")
         .description("Moves the text slightly.")
-        .defaultValue(0)
+        .defaultValue(13.2)
         .sliderMin(-50)
         .sliderMax(50)
         .visible(() -> textRender.get() != TextRender.NONE)
@@ -296,10 +296,17 @@ import static meteordevelopment.meteorclient.MeteorClient.mc;
         double yOff = yOffText.get();
         double off = slide.get();
 
-        GL.bindTexture(ARROW);
-        Renderer2D.TEXTURE.begin();
-        Renderer2D.TEXTURE.texQuad(x + width/2 - arrowX/2,y + height/2 - arrowY/2, arrowX, arrowY, playerYaw + 180, 0, 0, 1, 1, arrowColor.get());
-        Renderer2D.TEXTURE.render(null);
+        if (background.get()) {
+            renderer.quad(x, y , this.getWidth() , this.getHeight(), backgroundColor.get());
+        }
+
+        if (quadrant.get() && dist < quadrantDistance.get() * 1000) {
+            double posX = x;
+            double posY = y;
+            if (playerX > 0) posX = x + width/2;
+            if (playerZ > 0) posY = y + height/2;
+            renderer.quad(posX, posY, width/2, height/2, quadrantColor.get());
+        }
 
         if (spawnMode.get() != SpawnMode.NONE && spawnDistance.get() * 1000 > dist) {
             double angle = Math.atan2(0 - playerX, 0 - playerZ) - Math.toRadians(90);
@@ -353,17 +360,10 @@ import static meteordevelopment.meteorclient.MeteorClient.mc;
             renderer.quad(x + width, y, 1, height, frameColor.get());
         }
 
-        if (quadrant.get() && dist < quadrantDistance.get() * 1000) {
-            double posX = x;
-            double posY = y;
-            if (playerX > 0) posX = x + width/2;
-            if (playerZ > 0) posY = y + height/2;
-            renderer.quad(posX, posY, width/2, height/2, quadrantColor.get());
-        }
-
-        if (background.get()) {
-            renderer.quad(x, y - 1, this.getWidth() + 1, this.getHeight(), backgroundColor.get());
-        }
+        GL.bindTexture(ARROW);
+        Renderer2D.TEXTURE.begin();
+        Renderer2D.TEXTURE.texQuad(x + width/2 - arrowX/2,y + height/2 - arrowY/2, arrowX, arrowY, playerYaw + 180, 0, 0, 1, 1, arrowColor.get());
+        Renderer2D.TEXTURE.render(null);
 
     }
 

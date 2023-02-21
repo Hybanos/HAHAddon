@@ -35,11 +35,11 @@ public class HAHAddon extends MeteorAddon {
         Modules.get().add(new AntiAntiAFK());
         Modules.get().add(new AntiMob());
         Modules.get().add(new Auto_grow());
-		// Modules.get().add(new Auto_sex());
+		Modules.get().add(new Auto_sex());
         Modules.get().add(new AutoWalkP());
         Modules.get().add(new Block_rotation());
         Modules.get().add(new Duck_Icon());
-        Modules.get().add(new EntityOwnerFix());
+        // Modules.get().add(new EntityOwnerFix());
         Modules.get().add(new F3_crosshair());
         Modules.get().add(new Highway_Builder());
         Modules.get().add(new More_tracers());
@@ -55,19 +55,11 @@ public class HAHAddon extends MeteorAddon {
         Modules.get().add(new TPSLog());
         Modules.get().add(new Villager_Aura());
 
-        // Hud hud = meteordevelopment.meteorclient.systems.Systems.get(Hud.class);
-        // HUD
-        // hud.topLeft.add(new NoLeakPos(hud));
-        // hud.topLeft.add(new Duck_logo(hud));
-        // hud.topLeft.add(new Better_compass(hud));
-        // hud.topLeft.add(new New_chunks(hud));
-        // hud.topLeft.add(new Ducko(hud));
-
         // Hud
-        //Hud.get().register(BetterCompass.INFO);
-        //Hud.get().register(NoLeakPos.INFO);
-        //Hud.get().register(New_chunks.INFO);
-        //Hud.get().register(Duck_logo.INFO);
+        Hud.get().register(BetterCompass.INFO);
+        Hud.get().register(NoLeakPos.INFO);
+        Hud.get().register(New_chunks.INFO);
+        Hud.get().register(Duck_logo.INFO);
 	}
 
 	@Override

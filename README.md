@@ -2,11 +2,11 @@
 
 Small utility addon for Meteor Client, nothing fancy.
 
-Only for 1.18.2 / Meteor 0.4.9
+MC 1.19.2/3, Meteor 0.5.1/2
 
 ## Modules:
 <pre>
-- Auto Grow         | Bonemeals crops around you 
+- Auto Grow         | Bonemeals crops around you
 - Auto Sex          | Pretty much Banana+'s AutoSex
 - Block Rotation    | Randomizes or completely disables texture rotations
 - F3 Crosshair      | Displays the F3 crosshair instead of the normal one
@@ -14,7 +14,7 @@ Only for 1.18.2 / Meteor 0.4.9
 - No Bed Interact   | Prevents you from reseting your spawnpoint, or blowing up
 - Photoshoot        | Locks entity heads and body to your camera or specific pitch/yaw
 - RedstonePlacement | Helps you place blocks with rotation
-- SCAFFOLD          | Bigger, more buggy scaffold
+- SCAFFOLD          | Bigger, buggier scaffold
 - Spam+             | Spams chat from a .txt file
 - Stay Above        | Keeps you in a certain Y level range
 - Trash Can         | Deletes items in your inventory (you need the addon just for this)
