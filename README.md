@@ -2,7 +2,7 @@
 
 Small utility addon for Meteor Client, nothing fancy.
 
-MC 1.19.2/3, Meteor 0.5.1/2
+MC 1.19.2, Meteor 0.5.1
 
 ## Modules:
 <pre>
