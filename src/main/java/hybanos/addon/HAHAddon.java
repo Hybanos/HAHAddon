@@ -50,7 +50,7 @@ public class HAHAddon extends MeteorAddon {
         Modules.get().add(new SpamP());
         Modules.get().add(new Stay_above());
         Modules.get().add(new StashFinder());
-        Modules.get().add(new Test());
+        // Modules.get().add(new Test());
         Modules.get().add(new Trash_can());
         Modules.get().add(new TPSLog());
         Modules.get().add(new Villager_Aura());
@@ -64,10 +64,10 @@ public class HAHAddon extends MeteorAddon {
         // hud.topLeft.add(new Ducko(hud));
 
         // Hud
-        Hud.get().register(BetterCompass.INFO);
-        Hud.get().register(NoLeakPos.INFO);
-        Hud.get().register(New_chunks.INFO);
-        Hud.get().register(Duck_logo.INFO);
+        //Hud.get().register(BetterCompass.INFO);
+        //Hud.get().register(NoLeakPos.INFO);
+        //Hud.get().register(New_chunks.INFO);
+        //Hud.get().register(Duck_logo.INFO);
 	}
 
 	@Override
