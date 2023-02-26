@@ -44,6 +44,7 @@ public class HAHAddon extends MeteorAddon {
         Modules.get().add(new Highway_Builder());
         Modules.get().add(new More_tracers());
         Modules.get().add(new No_bed_interact());
+        Modules.get().add(new NotifierP());
         Modules.get().add(new Photoshoot());
         Modules.get().add(new RedstonePlacement());
         Modules.get().add(new SCAFFOLD());
