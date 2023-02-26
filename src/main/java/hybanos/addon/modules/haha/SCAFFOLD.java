@@ -8,11 +8,13 @@ import meteordevelopment.meteorclient.utils.player.FindItemResult;
 import meteordevelopment.meteorclient.utils.player.InvUtils;
 import meteordevelopment.orbit.EventHandler;
 import meteordevelopment.meteorclient.utils.world.BlockUtils;
+import net.minecraft.block.BlockState;
 import net.minecraft.util.Hand;
 import net.minecraft.item.ItemStack;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -126,7 +128,7 @@ public class SCAFFOLD extends Module {
         }
 
         blocksToPlace = blocksToPlace > bpt.get() ? bpt.get() : blocksToPlace;
-        for (BlockPos bp : bpProvider(mc.player.getBlockPos(), radius.get(), y, airPlace.get())) {
+        for (BlockPos bp : bpProvider(mc.player.getBlockPos(), radius.get(), y)) {
             if (blocksToPlace <= 0) return;
             placeBlock(bp, slot);
             blocksToPlace--;
@@ -137,8 +139,8 @@ public class SCAFFOLD extends Module {
         BlockUtils.place(blockpos, Hand.MAIN_HAND, slot, false, 50, false, true, false);
     }
 
-    public List<BlockPos> bpProvider(BlockPos centerPos, int radius, int height, boolean air) {
-        if (air) {
+    public List<BlockPos> bpProvider(BlockPos centerPos, int radius, int height) {
+        if (airPlace.get()) {
             return getSphere(centerPos, radius, height);
         }
         List<BlockPos> blocks = new ArrayList<>();
@@ -156,13 +158,22 @@ public class SCAFFOLD extends Module {
         if (pos.getY() < 319 && mc.world.getBlockState(newPos).getBlock() != Blocks.AIR) valid = true;
         newPos = new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ());
         if (pos.getY() > -64 && mc.world.getBlockState(newPos).getBlock() != Blocks.AIR) valid = true;
-        
-        if (valid ||
-        mc.world.getBlockState(new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ())).getBlock() != Blocks.AIR ||
-        mc.world.getBlockState(new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ())).getBlock() != Blocks.AIR ||
-        mc.world.getBlockState(new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 1)).getBlock() != Blocks.AIR ||
-        mc.world.getBlockState(new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1)).getBlock() != Blocks.AIR
-        ) valid = true;
+
+        for (Direction dir : Direction.values()) {
+            if (dir == Direction.UP || dir == Direction.DOWN) continue;
+            BlockState state = mc.world.getBlockState(pos.offset(dir));
+            if (state.getBlock() != Blocks.AIR) {
+                valid = true;
+                break;
+            }
+        }
+
+        // if (valid ||
+        // mc.world.getBlockState(new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ())).getBlock() != Blocks.AIR ||
+        // mc.world.getBlockState(new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ())).getBlock() != Blocks.AIR ||
+        // mc.world.getBlockState(new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 1)).getBlock() != Blocks.AIR ||
+        // mc.world.getBlockState(new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1)).getBlock() != Blocks.AIR
+        // ) valid = true;
 
         return valid;
     }
@@ -170,10 +181,10 @@ public class SCAFFOLD extends Module {
     public List<BlockPos> getSphere(BlockPos centerPos, int radius, int height) {
         List<BlockPos> blocks = new ArrayList<>();
 
-        for (int i = centerPos.getX() - radius; i <= centerPos.getX() + radius; i++) {
-            for (int k = centerPos.getZ() - radius; k <= centerPos.getZ() + radius; k++) {
-                BlockPos pos = new BlockPos(i, height, k);
-                if (mc.world.getBlockState(pos).getBlock() != Blocks.AIR) continue;
+        for (int x = centerPos.getX() - radius; x <= centerPos.getX() + radius; x++) {
+            for (int y = centerPos.getZ() - radius; y <= centerPos.getZ() + radius; y++) {
+                BlockPos pos = new BlockPos(x, height, y);
+                if (!mc.world.getBlockState(pos).getMaterial().isReplaceable()) continue;
                 if (!blocks.contains(pos)) blocks.add(pos);
             }
         }
