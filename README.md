@@ -7,7 +7,7 @@ MC 1.19.2, Meteor 0.5.1
 ## Modules:
 <pre>
 - Auto Grow         | Bonemeals crops around you
-- Auto Sex          | Pretty much Banana+'s AutoSex
+- Auto Mate         | Pretty much Banana+'s *thing*
 - Block Rotation    | Randomizes or completely disables texture rotations
 - F3 Crosshair      | Displays the F3 crosshair instead of the normal one
 - More Tracers      | Draws some tracers for navigation, I know it's bad
@@ -18,7 +18,7 @@ MC 1.19.2, Meteor 0.5.1
 - Spam+             | Spams chat from a .txt file
 - Stay Above        | Keeps you in a certain Y level range
 - Trash Can         | Deletes items in your inventory (you need the addon just for this)
-- TPS Log           | Another basto special
+- TPS Log           | Disconnects you from the server when tps drops
 - Villager Aura     | Fast automatic villager trades
 
 Made by Cookie:
@@ -32,6 +32,7 @@ Made by Cookie:
 <pre>
 - Highway Builder   | Fixed for a few anticheats 
 - Stash Finder      | Copy paste of meteor's stash finder, but with regular blocks
+- Notifier          | From meteor but with coords player logger
 </pre>
 
 ## Hud:

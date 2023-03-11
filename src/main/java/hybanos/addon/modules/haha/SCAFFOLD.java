@@ -74,6 +74,26 @@ public class SCAFFOLD extends Module {
         .defaultValue(false)
         .build()
     );
+    private final Setting<Boolean> Slabmode = sgGeneral.add(new BoolSetting.Builder()
+            .name("Slabmode")
+            .description("support for placing slabs.")
+            .defaultValue(false)
+            .build()
+    );
+    private final Setting<Boolean> Up = sgGeneral.add(new BoolSetting.Builder()
+            .name("Upper slab")
+            .description("Place the slab on the upper half of the block.")
+            .defaultValue(false)
+            .visible(() -> Slabmode.get())
+            .build()
+    );
+    private final Setting<Boolean> Down = sgGeneral.add(new BoolSetting.Builder()
+            .name("Lower slab")
+            .description("Place the slab on the lower half of the block.")
+            .defaultValue(false)
+            .visible(() -> Slabmode.get())
+            .build()
+    );
 
     private int timer = 0;
     private int firstPlace;
@@ -180,7 +200,6 @@ public class SCAFFOLD extends Module {
 
     public List<BlockPos> getSphere(BlockPos centerPos, int radius, int height) {
         List<BlockPos> blocks = new ArrayList<>();
-
         for (int x = centerPos.getX() - radius; x <= centerPos.getX() + radius; x++) {
             for (int y = centerPos.getZ() - radius; y <= centerPos.getZ() + radius; y++) {
                 BlockPos pos = new BlockPos(x, height, y);
