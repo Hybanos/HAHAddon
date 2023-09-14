@@ -2,7 +2,7 @@
 
 Small utility addon for Meteor Client, nothing fancy.
 
-MC 1.19.2, Meteor 0.5.1
+MC 1.20.1, Meteor 0.5.4
 
 ## Modules:
 <pre>
@@ -25,7 +25,7 @@ Made by Cookie:
 - AntiAntiAFK       | Disconnects you after a certain time
 - AntiMob           | Disconnects you if an entity is nearby
 - AutoWalk+         | AutoWalk with delay and more directions
-- Duck Icon         | Changes the windows icon to a duck
+- Duck Icon         | Changes the windows icon to a duck | Broken RN
 </pre>
 
 ## Skids/Mods:
