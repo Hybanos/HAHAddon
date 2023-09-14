@@ -1,5 +1,4 @@
 package hybanos.addon.settings;
-
 import meteordevelopment.meteorclient.gui.GuiTheme;
 import meteordevelopment.meteorclient.gui.widgets.containers.WContainer;
 import meteordevelopment.meteorclient.settings.Setting;

@@ -13,7 +13,7 @@ import meteordevelopment.meteorclient.utils.Utils;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registry;
 
 import java.util.function.Consumer;
 
