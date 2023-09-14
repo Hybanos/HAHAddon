@@ -13,7 +13,7 @@ import meteordevelopment.meteorclient.utils.Utils;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
-import net.minecraft.registry.Registry;
+import net.minecraft.registry.Registries;
 
 import java.util.function.Consumer;
 
@@ -35,7 +35,7 @@ public class Item2IntMapSetting extends Setting<Object2IntMap<Item>> {
         try {
             for (String value : values) {
                 String[] split = value.split(" ");
-                Item item = parseId(Registry.ITEM, split[0]);
+                Item item = parseId(Registries.ITEM, split[0]);
                 int number = Integer.parseInt(split[1]);
 
                 items.put(item, number);
@@ -54,7 +54,7 @@ public class Item2IntMapSetting extends Setting<Object2IntMap<Item>> {
     public NbtCompound save(NbtCompound tag) {
         NbtCompound valueTag = new NbtCompound();
         for (Item item : get().keySet()) {
-            Identifier id = Registry.ITEM.getId(item);
+            Identifier id = Registries.ITEM.getId(item);
             if (id != null) valueTag.putInt(id.toString(), get().getInt(item));
         }
         tag.put("value", valueTag);
@@ -68,7 +68,7 @@ public class Item2IntMapSetting extends Setting<Object2IntMap<Item>> {
 
         NbtCompound valueTag = tag.getCompound("value");
         for (String key : valueTag.getKeys()) {
-            Item item = Registry.ITEM.get(new Identifier(key));
+            Item item = Registries.ITEM.get(new Identifier(key));
             if (item != null) get().put(item, valueTag.getInt(key));
         }
 
@@ -87,9 +87,9 @@ public class Item2IntMapSetting extends Setting<Object2IntMap<Item>> {
     }
 
     public static Object2IntMap<Item> createItemMap() {
-        Object2IntMap<Item> map = new Object2IntArrayMap<>(Registry.ITEM.getIds().size());
+        Object2IntMap<Item> map = new Object2IntArrayMap<>(Registries.ITEM.getIds().size());
 
-        Registry.ITEM.forEach(item -> map.put(item, 0));
+        Registries.ITEM.forEach(item -> map.put(item, 0));
 
         return map;
     }

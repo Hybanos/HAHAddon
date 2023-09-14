@@ -302,12 +302,12 @@ public class Villager_Aura extends Module {
     }
 
     public void trade(MerchantScreenHandler handler) {
-        InvUtils.quickMove().slotId(2);
+        InvUtils.shiftClick().slotId(2);
     }
 
     public void resetSlots(MerchantScreenHandler handler) {
-        InvUtils.quickMove().slotId(0);
-        InvUtils.quickMove().slotId(1);
+        InvUtils.shiftClick().slotId(0);
+        InvUtils.shiftClick().slotId(1);
     }
 
     public void getVillagers() {

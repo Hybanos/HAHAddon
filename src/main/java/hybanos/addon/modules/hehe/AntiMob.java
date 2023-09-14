@@ -12,6 +12,8 @@ import net.minecraft.util.Language;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 
+import java.util.Set;
+
 // Made by Cookie
 
 public class AntiMob extends Module {
@@ -22,7 +24,7 @@ public class AntiMob extends Module {
         super(HAHAddon.COOKIE, "Anti Mob", "Automatically disconnects you when certain mobs are nearby.");
     }
 
-    private final Setting<Object2BooleanMap<EntityType<?>>> entities = sgGeneral.add(new EntityTypeListSetting.Builder()
+    private final Setting<Set<EntityType<?>>> entities = sgGeneral.add(new EntityTypeListSetting.Builder()
         .name("entites")
         .description("Select specific entities.")
         .defaultValue(EntityType.CREEPER)
@@ -48,7 +50,7 @@ public class AntiMob extends Module {
     @EventHandler
     private void onTick(TickEvent.Post event) {
         for (Entity entity : mc.world.getEntities()) {
-            if (entity == mc.player || !entities.get().getBoolean(entity.getType())) continue;
+            if (entity == mc.player || !entities.get().contains(entity.getType())) continue;
             if (mc.player.distanceTo(entity) < maxDist.get()) {
                 mc.player.networkHandler.onDisconnect(new DisconnectS2CPacket(Text.literal("[Anti Mob] " + Language.getInstance().get(entity.getType().toString()) + " got in your distance.")));
                 if (toggleOff.get()) this.toggle();

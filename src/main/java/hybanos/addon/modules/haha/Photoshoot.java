@@ -6,6 +6,8 @@ import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.settings.*;
 import net.minecraft.entity.EntityType;
 
+import java.util.Set;
+
 public class Photoshoot extends Module {
     private SettingGroup sgGeneral = settings.getDefaultGroup();
 
@@ -16,7 +18,7 @@ public class Photoshoot extends Module {
         .build()
     );
 
-    private final Setting<Object2BooleanMap<EntityType<?>>> entities = sgGeneral.add(new EntityTypeListSetting.Builder()
+    private final Setting<Set<EntityType<?>>> entities = sgGeneral.add(new EntityTypeListSetting.Builder()
         .name("entites")
         .description("Select specific entities.")
         .defaultValue(EntityType.PLAYER)
@@ -73,7 +75,7 @@ public class Photoshoot extends Module {
         return distance.get();
     }
 
-    public Object2BooleanMap<?> getEntities() {
+    public Set<?> getEntities() {
         return entities.get();
     }
 

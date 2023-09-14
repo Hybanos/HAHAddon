@@ -39,7 +39,6 @@ public class HAHAddon extends MeteorAddon {
         Modules.get().add(new AutoWalkP());
         Modules.get().add(new Block_rotation());
         Modules.get().add(new Duck_Icon());
-        // Modules.get().add(new EntityOwnerFix());
         Modules.get().add(new F3_crosshair());
         Modules.get().add(new Highway_Builder());
         Modules.get().add(new More_tracers());

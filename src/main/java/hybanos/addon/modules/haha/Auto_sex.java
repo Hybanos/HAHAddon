@@ -125,7 +125,7 @@ public class Auto_sex extends Module {
 
             text = String.format(text, player_name);
 
-            mc.player.sendChatMessage(text, null);
+            mc.player.networkHandler.sendChatMessage(text);
         }
 
         if (sneaking_active.get()) {

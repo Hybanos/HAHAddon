@@ -2,6 +2,8 @@ package hybanos.addon.modules.hehe;
 
 import hybanos.addon.HAHAddon;
 import meteordevelopment.meteorclient.systems.modules.Module;
+import net.minecraft.client.util.Icons;
+import net.minecraft.resource.DefaultResourcePack;
 
 import java.io.InputStream;
 
@@ -21,7 +23,7 @@ public class Duck_Icon extends Module {
                 InputStream stream16 = HAHAddon.class.getClassLoader().getResourceAsStream("assets/hahaddon/textures/icon16.png");
                 InputStream stream32 = HAHAddon.class.getClassLoader().getResourceAsStream("assets/hahaddon/textures/icon32.png");
 
-                if (stream16 != null && stream32 != null) mc.getWindow().setIcon(stream16, stream32);
+                // if (stream16 != null && stream32 != null) mc.getWindow().setIcon(mc.getDefaultResourcePack(), Icons.RELEASE);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -33,7 +35,7 @@ public class Duck_Icon extends Module {
                 InputStream stream16 = HAHAddon.class.getClassLoader().getResourceAsStream("assets/hahaddon/textures/defaulticon.png");
                 InputStream stream32 = HAHAddon.class.getClassLoader().getResourceAsStream("assets/hahaddon/textures/defaulticon.png");
 
-                if (stream16 != null && stream32 != null) mc.getWindow().setIcon(stream16, stream32);
+                // if (stream16 != null && stream32 != null) mc.getWindow().setIcon(stream16, stream32);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

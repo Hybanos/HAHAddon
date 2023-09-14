@@ -203,7 +203,7 @@ public class SCAFFOLD extends Module {
         for (int x = centerPos.getX() - radius; x <= centerPos.getX() + radius; x++) {
             for (int y = centerPos.getZ() - radius; y <= centerPos.getZ() + radius; y++) {
                 BlockPos pos = new BlockPos(x, height, y);
-                if (!mc.world.getBlockState(pos).getMaterial().isReplaceable()) continue;
+                if (!mc.world.getBlockState(pos).isReplaceable()) continue;
                 if (!blocks.contains(pos)) blocks.add(pos);
             }
         }

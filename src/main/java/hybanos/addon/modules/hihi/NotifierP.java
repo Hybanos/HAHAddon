@@ -29,6 +29,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.text.Text;
 
 import java.util.Random;
+import java.util.Set;
 import java.util.UUID;
 
 
@@ -87,7 +88,7 @@ public class NotifierP extends Module {
         .build()
     );
 
-    private final Setting<Object2BooleanMap<EntityType<?>>> entities = sgVisualRange.add(new EntityTypeListSetting.Builder()
+    private final Setting<Set<EntityType<?>>> entities = sgVisualRange.add(new EntityTypeListSetting.Builder()
         .name("entities")
         .description("Which entities to nofity about.")
         .defaultValue(EntityType.PLAYER)
@@ -142,7 +143,7 @@ public class NotifierP extends Module {
         double playerZ = mc.player.getPos().getZ();
         double dist = Math.sqrt(playerX*playerX + playerZ*playerZ);
 
-        if (event.entity.getUuid().equals(mc.player.getUuid()) || !entities.get().getBoolean(event.entity.getType()) || !visualRange.get() || this.event.get() == Event.Despawn) return;
+        if (event.entity.getUuid().equals(mc.player.getUuid()) || !entities.get().contains(event.entity.getType()) || !visualRange.get() || this.event.get() == Event.Despawn) return;
         if (event.entity instanceof PlayerEntity) {
             if ((!visualRangeIgnoreFriends.get() || !Friends.get().isFriend(((PlayerEntity) event.entity))) && (!visualRangeIgnoreFakes.get() || !(event.entity instanceof FakePlayerEntity))) {
                 if (getCoords.get() && spawnDistance.get() * 1000 > dist) {
@@ -174,7 +175,7 @@ public class NotifierP extends Module {
         double playerZ = mc.player.getPos().getZ();
         double dist = Math.sqrt(playerX*playerX + playerZ*playerZ);
 
-        if (event.entity.getUuid().equals(mc.player.getUuid()) || !entities.get().getBoolean(event.entity.getType()) || !visualRange.get() || this.event.get() == Event.Spawn) return;
+        if (event.entity.getUuid().equals(mc.player.getUuid()) || !entities.get().contains(event.entity.getType()) || !visualRange.get() || this.event.get() == Event.Spawn) return;
         if (event.entity instanceof PlayerEntity) {
             if ((!visualRangeIgnoreFriends.get() || !Friends.get().isFriend(((PlayerEntity) event.entity))) && (!visualRangeIgnoreFakes.get() || !(event.entity instanceof FakePlayerEntity))) {
                 if (getCoords.get() && spawnDistance.get() * 1000 > dist) {

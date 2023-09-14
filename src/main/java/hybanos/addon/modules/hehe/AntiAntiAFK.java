@@ -89,7 +89,7 @@ public class AntiAntiAFK extends Module {
         }
         if (back.get()) {
             if (isAfk) {
-                mc.player.sendChatMessage("/msg DuckIsTheBot !afk " + mc.player.getName().getString(), null);
+                mc.player.networkHandler.sendChatCommand("msg DuckIsTheBot !afk " + mc.player.getName().getString());
             }
             afkTimer = 0;
             isAfk = false;
@@ -108,7 +108,7 @@ public class AntiAntiAFK extends Module {
         if (afkTimer < Message.get() * 20 * 60 && toggledm.get()) {
             afkTimer++;
         } else if (!isAfk && toggledm.get()) {
-            mc.player.sendChatMessage("/msg DuckIsTheBot !afk " + mc.player.getName().getString(), null);
+            mc.player.networkHandler.sendCommand("msg DuckIsTheBot !afk " + mc.player.getName().getString());
             isAfk = true;
         }
     }

@@ -114,7 +114,7 @@ public class SpamP extends Module {
             timer = 0;
         }
 
-        mc.player.sendChatMessage(lines.get(0), null);
+        mc.player.networkHandler.sendChatMessage(lines.get(0));
         lines.remove(0);
 
         shouldToggle = true;
