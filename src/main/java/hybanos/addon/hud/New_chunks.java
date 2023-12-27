@@ -3,7 +3,6 @@ package hybanos.addon.hud;
 import hybanos.addon.HAHAddon;
 import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.settings.*;
-import meteordevelopment.meteorclient.systems.hud.Hud;
 import meteordevelopment.meteorclient.systems.hud.HudRenderer;
 import meteordevelopment.meteorclient.systems.hud.HudElementInfo;
 import meteordevelopment.meteorclient.systems.hud.HudElement;
@@ -82,7 +81,7 @@ public class New_chunks extends HudElement {
     private final Setting<Integer> barLower = sgBar.add(new IntSetting.Builder()
         .name("lower limit (ms)")
         .description("")
-        .defaultValue(0)
+        .defaultValue(1)
         .sliderRange(1, 50)
         .min(1)
         .onChanged(barLower -> updateBar())
@@ -108,7 +107,7 @@ public class New_chunks extends HudElement {
     private double boxX = this.getX();
     private double boxY = this.getY();
 
-    public Cookie grid = new Cookie(size.get() * 2 + 1);
+    public Grid grid = new Grid(size.get() * 2 + 1);
     public TimeBar timeBar = new TimeBar();
 
     private long lastChunk;
@@ -129,7 +128,7 @@ public class New_chunks extends HudElement {
     }
 
     private void onSizeChange() {
-        grid = new Cookie(size.get() * 2 + 1);
+        grid = new Grid(size.get() * 2 + 1);
     }
 
     private void updateBar() {
@@ -142,7 +141,7 @@ public class New_chunks extends HudElement {
     }
 
     @Override
-    public void render(HudRenderer renderer) {  
+    public void render(HudRenderer renderer) {
         setSize(1,1);
         if (mc.player == null || mc.world == null) return;
 
@@ -171,9 +170,7 @@ public class New_chunks extends HudElement {
                 }
             }
         }
-
         timeBar.render(renderer);
-
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -238,11 +235,11 @@ public class New_chunks extends HudElement {
         return (int)(255 / ( 1 + Math.pow(Math.E, -(x / 20 - 6)) ) );
     }
 
-    public class Cookie {
+    public class Grid {
 
         private Chunk[][] table;
 
-        public Cookie(int range) {
+        public Grid(int range) {
             table = new Chunk[range][range];
 
             for (int x = 0; x < size() - 1; x++) {
@@ -413,7 +410,7 @@ public class New_chunks extends HudElement {
         public void render(HudRenderer renderer) {
             double x = boxX;
             double y = boxY;
-            
+
             double square = height * scale.get();
 
             Color left = new Color(255, 255, 255,255);

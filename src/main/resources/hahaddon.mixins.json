@@ -7,7 +7,7 @@
       "EntityMixin",
       "VillagerEntityAccessor",
       "HandledScreenAccessor",
-      "InGameHudMixin"
+      "InGameHudMixin",
   ],
   "injectors": {
     "defaultRequire": 1

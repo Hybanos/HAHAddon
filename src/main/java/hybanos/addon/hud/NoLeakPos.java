@@ -120,6 +120,8 @@ public class NoLeakPos extends HudElement {
 
         if (isInEditor()) {
             right1 = "0, 0, 0";
+            left2 = "Nether Pos:";
+            right2 = "0, 0, 0";
             setSize(left1Width + renderer.textWidth(right1), height);
             return;
         }
