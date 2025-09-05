@@ -26,7 +26,7 @@ jobs:
               run: ./gradlew build
 
             - name: variables
-              run: COMMIT_=$(git rev-parse HEAD); COMMIT=${COMMIT_:0:8}; echo "COMMIT=$COMMIT" >> $GITHUB_ENV
+              run: COMMIT_=$(git rev-parse HEAD); COMMIT=${COMMIT_:0:8}; echo "COMMIT=$COMMIT_" >> $GITHUB_ENV
 
             - name: create body
               run: echo "Haha" > body.md
