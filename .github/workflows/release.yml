@@ -2,8 +2,8 @@ name: Release
 
 on:
     push:
-        tags:
-            - '1.21.8'
+        branches:
+            - "1.21.8"
 
 jobs:
     release:
@@ -25,11 +25,19 @@ jobs:
             - name: build
               run: ./gradlew build
 
+            - name: variables
+              run: echo "COMMIT=${$(git rev-parse HEAD):0:8}" >> $GITHUB_ENV
+
             - name: create body
-              run: echo "Haha?" > body.md
+              run: echo "Haha" > body.md
+
+            - name: rename jar
+              run: "mv build/libs/HAHAddon-1.21.8.jar build/libs/HAHAddon-1.21.8-${{ env.COMMIT }}.jar"
 
             - name: release
               uses: ncipollo/release-action@v1
               with:
                 artifacts: "build/libs/HAHAddon-*.jar"
                 bodyFile: "body.md"
+                name: "HAHAddon-1.21.8-${{ env.COMMIT }}"
+                commit: "${{ env.COMMIT }}"
