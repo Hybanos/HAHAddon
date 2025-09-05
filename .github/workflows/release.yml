@@ -43,5 +43,4 @@ jobs:
                 artifacts: "build/libs/HAHAddon-*.jar"
                 bodyFile: "body.md"
                 name: "HAHAddon-1.21.8-${{ env.COMMIT }}"
-                commit: "${{ env.COMMIT }}"
                 tag: "Release"
