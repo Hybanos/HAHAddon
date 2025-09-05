@@ -35,7 +35,7 @@ jobs:
               run: "mv build/libs/HAHAddon-1.21.8.jar build/libs/HAHAddon-1.21.8-${{ env.COMMIT }}.jar"
 
             - name: update tag
-              run: "git config user.email 'ci@ci.ci'; git config user.name 'ci'; git tag -a ${{ env.COMMIT }}; git push --tags"
+              run: "git config user.email 'ci@ci.ci'; git config user.name 'ci'; git tag -a ${{ env.COMMIT }} -m haha; git push --tags"
 
             - name: release
               uses: ncipollo/release-action@v1
