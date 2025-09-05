@@ -26,13 +26,16 @@ jobs:
               run: ./gradlew build
 
             - name: variables
-              run: COMMIT_=$(git rev-parse HEAD); COMMIT=${COMMIT_:0:8}; echo "COMMIT=$COMMIT_" >> $GITHUB_ENV
+              run: COMMIT_=$(git rev-parse HEAD); COMMIT=${COMMIT_:0:8}; echo "COMMIT=$COMMIT" >> $GITHUB_ENV
 
             - name: create body
               run: echo "Haha" > body.md
 
             - name: rename jar
               run: "mv build/libs/HAHAddon-1.21.8.jar build/libs/HAHAddon-1.21.8-${{ env.COMMIT }}.jar"
+
+            - name: update tag
+              run: "git tag -a ${{ env.COMMIT }}; git push --tags"
 
             - name: release
               uses: ncipollo/release-action@v1
