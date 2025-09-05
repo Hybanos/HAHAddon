@@ -3,7 +3,7 @@ name: Release
 on:
     push:
         branches:
-            - 1.28.1
+            - "1.21.8"
 
 jobs:
     release:
