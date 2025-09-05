@@ -35,7 +35,6 @@ public class HAHAddon extends MeteorAddon {
         Modules.get().add(new AntiAntiAFK());
         Modules.get().add(new AntiMob());
         Modules.get().add(new Auto_grow());
-		Modules.get().add(new Auto_sex());
         Modules.get().add(new AutoWalkP());
         Modules.get().add(new Block_rotation());
         Modules.get().add(new Duck_Icon());

@@ -7,8 +7,9 @@ import meteordevelopment.meteorclient.systems.hud.HudRenderer;
 import meteordevelopment.meteorclient.systems.hud.HudElementInfo;
 import meteordevelopment.meteorclient.systems.hud.HudElement;
 import meteordevelopment.meteorclient.utils.render.color.SettingColor;
-import meteordevelopment.meteorclient.renderer.GL;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.ColorHelper;
 
 import java.lang.Math;
 
@@ -262,8 +263,8 @@ import static meteordevelopment.meteorclient.MeteorClient.mc;
         super(INFO);
     }
 
-    private final Identifier ARROW = new Identifier("hahaddon", "textures/arrow.png");
-    private final Identifier CIRCLE = new Identifier("hahaddon", "textures/circle.png");
+    private final Identifier ARROW = Identifier.of("hahaddon", "textures/arrow.png");
+    private final Identifier CIRCLE = Identifier.of("hahaddon", "textures/circle.png");
 
     @Override
     public void setSize(double w, double h) {
@@ -322,10 +323,19 @@ import static meteordevelopment.meteorclient.MeteorClient.mc;
                 }
 
             } else {
-                GL.bindTexture(CIRCLE);
-                Renderer2D.TEXTURE.begin();
-                Renderer2D.TEXTURE.texQuad(x + width/2 + circleX - circleSize/2,y + height/2 + circleY - circleSize/2, circleSize, circleSize, spawnColor.get());
-                Renderer2D.TEXTURE.render(null);
+                renderer.drawContext.drawTexture(
+                    RenderPipelines.GUI_TEXTURED,
+                    CIRCLE,
+                    (int) (x + width / 2 + circleX - circleSize / 2),
+                    (int) (y + height/2 + circleY - circleSize/2),
+                    0f,
+                    0f,
+                    (int) circleSize,
+                    (int) circleSize,
+                    64,
+                    64,
+                    spawnColor.get().getPacked()
+                );
             }
         }
 
@@ -359,11 +369,21 @@ import static meteordevelopment.meteorclient.MeteorClient.mc;
             renderer.quad(x - 1, y, 1, height, frameColor.get());
             renderer.quad(x + width, y, 1, height, frameColor.get());
         }
-
-        GL.bindTexture(ARROW);
-        Renderer2D.TEXTURE.begin();
-        Renderer2D.TEXTURE.texQuad(x + width/2 - arrowX/2,y + height/2 - arrowY/2, arrowX, arrowY, playerYaw + 180, 0, 0, 1, 1, arrowColor.get());
-        Renderer2D.TEXTURE.render(null);
+        /*
+        renderer.drawContext.drawTexture(
+            RenderPipelines.GUI_TEXTURED,
+            CIRCLE,
+            (int) (x + width / 2 + arrowX / 2),
+            (int) (y + height/2 + arrowY / 2),
+            0f,
+            0f,
+            (int) circleSize,
+            (int) circleSize,
+            64,
+            64,
+            spawnColor.get().getPacked()
+        );
+        */
 
     }
 

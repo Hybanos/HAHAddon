@@ -123,7 +123,7 @@ public class SCAFFOLD extends Module {
 
         ItemStack handStack = mc.player.getMainHandStack();
         int blocksToPlace = 0;
-        int slot = mc.player.getInventory().selectedSlot;
+        int slot = mc.player.getInventory().getSelectedSlot();
 
         if (blocks.get().contains(Block.getBlockFromItem(handStack.getItem()))) {
             blocksToPlace = handStack.getCount();

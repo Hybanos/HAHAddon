@@ -1,8 +1,8 @@
 plugins {
-    id 'fabric-loom' version '0.12-SNAPSHOT'
+    id 'fabric-loom' version '1.11-SNAPSHOT'
 }
 
-sourceCompatibility = targetCompatibility = JavaVersion.VERSION_17
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_20
 
 archivesBaseName = project.archives_base_name
 version = project.mod_version
@@ -15,7 +15,7 @@ repositories {
     }
     maven {
         name = "meteor-maven-snapshots"
-        url = "https://maven.meteordev.org/snapshots"
+        url = "https://maven.meteordev.org/snapshots/"
     }
     jcenter()
 }
@@ -27,15 +27,8 @@ dependencies {
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-    //
-    modImplementation "baritone:fabric:${project.baritone_version}"
-    include "baritone:fabric:${project.baritone_version}"
-
     // Meteor
     modImplementation "meteordevelopment:meteor-client:${project.meteor_version}"
-
-
-
 }
 
 processResources {

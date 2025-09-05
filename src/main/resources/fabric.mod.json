@@ -25,8 +25,8 @@
     "meteor-client:color": "73,107,255"
   },
   "depends": {
-    "java": ">=17",
-    "minecraft": ">=1.20.1",
-    "meteor-client": ">=0.5.4-0"
+    "java": ">=20",
+    "minecraft": ">=1.21.8",
+    "meteor-client": ">=1.21.8-36"
   }
 }

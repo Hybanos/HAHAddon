@@ -1,13 +1,13 @@
 package hybanos.addon.modules.hehe;
 
 import hybanos.addon.HAHAddon;
-import net.minecraft.network.packet.s2c.play.DisconnectS2CPacket;
 import meteordevelopment.meteorclient.events.game.GameJoinedEvent;
 import meteordevelopment.meteorclient.events.meteor.KeyEvent;
 import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.orbit.EventHandler;
+import net.minecraft.network.packet.s2c.common.DisconnectS2CPacket;
 import net.minecraft.text.Text;
 
 // Made by Cookie
@@ -108,7 +108,7 @@ public class AntiAntiAFK extends Module {
         if (afkTimer < Message.get() * 20 * 60 && toggledm.get()) {
             afkTimer++;
         } else if (!isAfk && toggledm.get()) {
-            mc.player.networkHandler.sendCommand("msg DuckIsTheBot !afk " + mc.player.getName().getString());
+            mc.player.networkHandler.sendChatCommand("msg DuckIsTheBot !afk " + mc.player.getName().getString());
             isAfk = true;
         }
     }

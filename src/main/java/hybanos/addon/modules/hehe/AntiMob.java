@@ -3,7 +3,6 @@ package hybanos.addon.modules.hehe;
 import hybanos.addon.HAHAddon;
 import it.unimi.dsi.fastutil.objects.Object2BooleanMap;
 import meteordevelopment.meteorclient.events.world.TickEvent;
-import net.minecraft.network.packet.s2c.play.DisconnectS2CPacket;
 import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.orbit.EventHandler;
@@ -11,7 +10,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Language;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-
+import net.minecraft.network.packet.s2c.common.DisconnectS2CPacket;
 import java.util.Set;
 
 // Made by Cookie

@@ -1,7 +1,7 @@
 {
   "required": true,
   "package": "hybanos.addon.mixin.meteor",
-  "compatibilityLevel": "JAVA_17",
+  "compatibilityLevel": "JAVA_20",
   "client": [
       "DefaultSettingsWidgetFactoryMixin"
   ],

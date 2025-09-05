@@ -20,6 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(InGameHud.class)
 public class InGameHudMixin {
+    /*
 
     @Inject(method="renderCrosshair", at=@At(value = "HEAD"), cancellable = true)
     private void onRenderCrosshair(DrawContext context, CallbackInfo info) {
@@ -35,7 +36,7 @@ public class InGameHudMixin {
 
             if (mc.interactionManager.getCurrentGameMode() != GameMode.SPECTATOR) {
                 Camera camera = mc.gameRenderer.getCamera();
-                MatrixStack matrixStack = RenderSystem.getModelViewStack();
+                Matrix4fStack matrixStack = RenderSystem.getModelViewStack();
                 matrixStack.push();
                 matrixStack.multiplyPositionMatrix(context.getMatrices().peek().getPositionMatrix());
                 matrixStack.translate(mc.getWindow().getScaledWidth() / 2, mc.getWindow().getScaledHeight() / 2, 0.0f);
@@ -50,4 +51,6 @@ public class InGameHudMixin {
             }
         }
     }
+
+     */
 }

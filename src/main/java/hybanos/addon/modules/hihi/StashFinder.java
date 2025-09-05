@@ -6,8 +6,6 @@
 package hybanos.addon.modules.hihi;
 
 import hybanos.addon.HAHAddon;
-import baritone.api.BaritoneAPI;
-import baritone.api.pathing.goals.GoalXZ;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -20,6 +18,7 @@ import meteordevelopment.meteorclient.gui.widgets.containers.WTable;
 import meteordevelopment.meteorclient.gui.widgets.containers.WVerticalList;
 import meteordevelopment.meteorclient.gui.widgets.pressable.WButton;
 import meteordevelopment.meteorclient.gui.widgets.pressable.WMinus;
+import meteordevelopment.meteorclient.pathing.PathManagers;
 import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.utils.Utils;
@@ -28,6 +27,7 @@ import meteordevelopment.orbit.EventHandler;
 import net.minecraft.block.entity.*;
 import net.minecraft.block.Block;
 import net.minecraft.item.Items;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.chunk.ChunkSection;
 
@@ -102,13 +102,13 @@ public class StashFinder extends Module {
     @EventHandler
     private void onChunkData(ChunkDataEvent event) {
         // Check the distance.
-        double chunkXAbs = Math.abs(event.chunk.getPos().x * 16);
-        double chunkZAbs = Math.abs(event.chunk.getPos().z * 16);
+        double chunkXAbs = Math.abs(event.chunk().getPos().x * 16);
+        double chunkZAbs = Math.abs(event.chunk().getPos().z * 16);
         if (Math.sqrt(chunkXAbs * chunkXAbs + chunkZAbs * chunkZAbs) < minimumDistance.get()) return;
 
-        Chunk chunk = new Chunk(event.chunk.getPos());
+        Chunk chunk = new Chunk(event.chunk().getPos());
         int solid = 0;
-        for (BlockEntity blockEntity : event.chunk.getBlockEntities().values()) {
+        for (BlockEntity blockEntity : event.chunk().getBlockEntities().values()) {
             if (!storageBlocks.get().contains(blockEntity.getType())) continue;
 
             if (blockEntity instanceof ChestBlockEntity) chunk.chests++;
@@ -121,7 +121,7 @@ public class StashFinder extends Module {
         }
 
         if (!regularBlocks.get().isEmpty()) {
-            for (ChunkSection section : event.chunk.getSectionArray()) {
+            for (ChunkSection section : event.chunk().getSectionArray()) {
                 for (int x = 0; x < 15; x++) {
                     for (int y = 0; y < 15; y++) {
                         for (int z = 0; z < 15; z++) {
@@ -146,16 +146,19 @@ public class StashFinder extends Module {
             if (sendNotifications.get() && (!chunk.equals(prevChunk) || !chunk.countsEqual(prevChunk))) {
                 switch (notificationMode.get()) {
                     case Chat -> info("Found stash at (highlight)%s(default), (highlight)%s(default).", chunk.x, chunk.z);
-                    case Toast -> mc.getToastManager().add(new MeteorToast(Items.CHEST, title, "Found Stash!"));
+                    case Toast -> {
+                        MeteorToast toast = new MeteorToast.Builder(title).icon(Items.CHEST).text("Found Stash!").build();
+                        mc.getToastManager().add(toast);
+                    }
                     case Both -> {
                         info("Found stash at (highlight)%s(default), (highlight)%s(default).", chunk.x, chunk.z);
-                        mc.getToastManager().add(new MeteorToast(Items.CHEST, title, "Found Stash!"));
+                        MeteorToast toast = new MeteorToast.Builder(title).icon(Items.CHEST).text("Found Stash!").build();
+                        mc.getToastManager().add(toast);
                     }
                 }
             }
         }
 
-        ChunkDataEvent.returnChunkDataEvent(event);
     }
 
     @Override
@@ -191,7 +194,7 @@ public class StashFinder extends Module {
             open.action = () -> mc.setScreen(new ChunkScreen(theme, chunk));
 
             WButton gotoBtn = table.add(theme.button("Goto")).widget();
-            gotoBtn.action = () -> BaritoneAPI.getProvider().getPrimaryBaritone().getCustomGoalProcess().setGoalAndPath(new GoalXZ(chunk.x, chunk.z));
+            gotoBtn.action = () -> PathManagers.get().moveTo(new BlockPos(chunk.x, 0, chunk.z), true);
 
             WMinus delete = table.add(theme.minus()).widget();
             delete.action = () -> {

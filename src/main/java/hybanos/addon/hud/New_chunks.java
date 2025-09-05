@@ -177,8 +177,8 @@ public class New_chunks extends HudElement {
     private void onReceivePacket(PacketEvent.Receive event) {
         if (event.packet instanceof ChunkDataS2CPacket) {
 
-            int xChunk = ((ChunkDataS2CPacket)event.packet).getX();
-            int zChunk = ((ChunkDataS2CPacket)event.packet).getZ();
+            int xChunk = ((ChunkDataS2CPacket)event.packet).getChunkX();
+            int zChunk = ((ChunkDataS2CPacket)event.packet).getChunkZ();
 
             int xOff = xChunk - chunkPosX + grid.size() / 2 + 1;
             int zOff = zChunk -chunkPosZ + grid.size() / 2 + 1;

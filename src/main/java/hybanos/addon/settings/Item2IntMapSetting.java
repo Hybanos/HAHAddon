@@ -66,10 +66,10 @@ public class Item2IntMapSetting extends Setting<Object2IntMap<Item>> {
     public Object2IntMap<Item> load(NbtCompound tag) {
         get().clear();
 
-        NbtCompound valueTag = tag.getCompound("value");
+        NbtCompound valueTag = tag.getCompound("value").get();
         for (String key : valueTag.getKeys()) {
-            Item item = Registries.ITEM.get(new Identifier(key));
-            if (item != null) get().put(item, valueTag.getInt(key));
+            Item item = Registries.ITEM.getEntry(Identifier.of(key)).get().value();
+            if (item != null) get().put(item, valueTag.getInt(key).get());
         }
 
         return get();

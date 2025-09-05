@@ -234,16 +234,16 @@ public class Villager_Aura extends Module {
         boolean success = false;
         for (TradeOffer offer : handler.getRecipes()) {
             int uses = offer.getUses();
-            if (selling.get().contains(offer.getAdjustedFirstBuyItem().getItem()) && !offer.isDisabled()) {
+            if (selling.get().contains(offer.getDisplayedFirstBuyItem().getItem()) && !offer.isDisabled()) {
                 allDisabled = false;
-                FindItemResult item = InvUtils.find(offer.getAdjustedFirstBuyItem().getItem());
-                if (item.count() >= offer.getAdjustedFirstBuyItem().getCount()) {
+                FindItemResult item = InvUtils.find(offer.getDisplayedFirstBuyItem().getItem());
+                if (item.count() >= offer.getDisplayedFirstBuyItem().getCount()) {
                     clickTrade(handler, index);
                     trade(handler);
                     resetSlots(handler);
                     lastAction = timer;
                     tradeCount = tradeCount + (offer.getUses() - uses);
-                    itemsSold = itemsSold + (item.count() - InvUtils.find(offer.getAdjustedFirstBuyItem().getItem()).count());
+                    itemsSold = itemsSold + (item.count() - InvUtils.find(offer.getDisplayedFirstBuyItem().getItem()).count());
                     emeraldNet = emeraldNet + offer.getSellItem().getCount() * (offer.getUses() - uses);
                     ranOut = false;
                     success = true;
@@ -251,7 +251,7 @@ public class Villager_Aura extends Module {
 
                     break;
                 } else {
-                    if (info.get()) info("You need more " + offer.getAdjustedFirstBuyItem().getItem().toString() + " !");
+                    if (info.get()) info("You need more " + offer.getDisplayedFirstBuyItem().getItem().toString() + " !");
                 }
             }
             index++;
@@ -272,7 +272,7 @@ public class Villager_Aura extends Module {
             int uses = offer.getUses();
             if (buying.get().contains(offer.getSellItem().getItem()) && !offer.isDisabled()) {
                 allDisabled = false;
-                if (emeraldCount >= offer.getAdjustedFirstBuyItem().getCount()) {
+                if (emeraldCount >= offer.getDisplayedFirstBuyItem().getCount()) {
                     clickTrade(handler, index);
                     trade(handler);
                     resetSlots(handler);

@@ -20,6 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.c2s.play.ClickSlotC2SPacket;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.SlotActionType;
+import net.minecraft.screen.sync.ItemStackHash;
 
 public class Trash_can extends Module {
 
@@ -41,8 +42,8 @@ public class Trash_can extends Module {
 
         if (mc.currentScreen instanceof HandledScreen<?>) return;
 
-        int id = -1;
-        int button = 50;
+        short id = -1;
+        byte button = 50;
 
         ScreenHandler handler = mc.player.currentScreenHandler;
 
@@ -53,7 +54,7 @@ public class Trash_can extends Module {
             FindItemResult result = InvUtils.find(item);
 
             if (result.count() >= number) {
-                id = result.slot();
+                id = (short) result.slot();
                 break;
             }
         }
@@ -62,14 +63,15 @@ public class Trash_can extends Module {
         id = dataSlotToNetworkSlot(id);
 
         handler.onSlotClick(id, 50, SlotActionType.SWAP, mc.player);
-        Int2ObjectMap<ItemStack> stacks = new Int2ObjectOpenHashMap<ItemStack>();
+        Int2ObjectMap<ItemStackHash> stacks = new Int2ObjectOpenHashMap<ItemStackHash>();
 
+        ItemStackHash itemStackHash = ItemStackHash.fromItemStack(handler.getCursorStack().copy(), mc.getNetworkHandler().getComponentHasher());
         if (!(mc.currentScreen instanceof HandledScreen<?>)) {
-            mc.getNetworkHandler().sendPacket(new ClickSlotC2SPacket(0, handler.getRevision(), id, button, SlotActionType.SWAP, handler.getCursorStack().copy(), stacks));
+            mc.getNetworkHandler().sendPacket(new ClickSlotC2SPacket(0, handler.getRevision(), id, button, SlotActionType.SWAP, stacks, itemStackHash));
         }
     }
 
-    private static int dataSlotToNetworkSlot(int index) {
+    private static short dataSlotToNetworkSlot(int index) {
             if (index <= 8)
                 index += 36;
             else if (index == 100)
@@ -82,7 +84,7 @@ public class Trash_can extends Module {
                 index = 5;
             else if (index >= 80 && index <= 83)
                 index -= 79;
-            return index;
+            return (short) index;
         }
 
         @Override

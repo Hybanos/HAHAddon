@@ -9,7 +9,6 @@ import java.io.InputStream;
 
 public class Duck_Icon extends Module {
 
-
     public Duck_Icon() {
         super(HAHAddon.COOKIE, "Duck Icon", "Changes the Windows Icon to a Duck.");
     }
@@ -50,4 +49,4 @@ public class Duck_Icon extends Module {
     public void onDeactivate() {
 		changeIconDefault();
     }
-}	
+}

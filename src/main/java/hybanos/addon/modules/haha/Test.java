@@ -35,7 +35,7 @@ public class Test extends Module {
         map.put(0, new ItemStack(Items.COCOA_BEANS, 1));
 
         for (int i=0; i<ppt.get();i++) {
-            mc.getNetworkHandler().sendPacket(new ClickSlotC2SPacket(mc.player.currentScreenHandler.syncId, 12334, 2957234, 2859623, SlotActionType.PICKUP, new ItemStack(Items.AIR, -1), map));
+            // mc.getNetworkHandler().sendPacket(new ClickSlotC2SPacket(mc.player.currentScreenHandler.syncId, 12334, 255, 2859623, SlotActionType.PICKUP, new ItemStack(Items.AIR, -1), map));
         }
     }
 }

@@ -156,7 +156,7 @@ public class Auto_grow extends Module {
         block == Blocks.LILAC ||
         block == Blocks.ROSE_BUSH ||
         block == Blocks.PEONY ||
-        block == Blocks.GRASS ||
+        block == Blocks.SHORT_GRASS ||
         block == Blocks.FERN ||
         block == Blocks.SEAGRASS ||
         block == Blocks.RED_MUSHROOM ||
