@@ -35,8 +35,7 @@ jobs:
               run: "mv build/libs/HAHAddon-1.21.8.jar build/libs/HAHAddon-1.21.8-${{ env.COMMIT }}.jar"
 
             - name: update tag
-              run: "git config user.email 'ci@ci.ci'; git config user.name 'ci'; git tag -fa Release -m haha; git push --tags -f"
-
+              run: "git config user.email 'ci@ci.ci'; git config user.name 'ci'; git tag -fa 1.21.8-${{ env.COMMIT }} -m haha; git push --tags -f"
 
             - name: release
               uses: ncipollo/release-action@v1
@@ -44,4 +43,5 @@ jobs:
                 artifacts: "build/libs/HAHAddon-*.jar"
                 bodyFile: "body.md"
                 name: "HAHAddon-1.21.8-${{ env.COMMIT }}"
+                tag: "1.21.8-${{ env.COMMIT }}"
                 makeLatest: true
