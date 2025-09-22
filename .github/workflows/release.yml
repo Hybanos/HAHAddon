@@ -37,6 +37,7 @@ jobs:
             - name: update tag
               run: "git config user.email 'ci@ci.ci'; git config user.name 'ci'; git tag -fa Release -m haha; git push --tags -f"
 
+
             - name: release
               uses: ncipollo/release-action@v1
               with:
