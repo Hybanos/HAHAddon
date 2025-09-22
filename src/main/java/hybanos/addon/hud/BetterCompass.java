@@ -1,6 +1,12 @@
 package hybanos.addon.hud;
 
+import com.mojang.blaze3d.pipeline.RenderPipeline;
+import meteordevelopment.meteorclient.gui.renderer.GuiRenderer;
+import meteordevelopment.meteorclient.gui.renderer.packer.GuiTexture;
+import meteordevelopment.meteorclient.gui.renderer.packer.TexturePacker;
+import meteordevelopment.meteorclient.renderer.Texture;
 import hybanos.addon.HAHAddon;
+import meteordevelopment.meteorclient.gui.renderer.packer.TextureRegion;
 import meteordevelopment.meteorclient.renderer.Renderer2D;
 import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.hud.HudRenderer;
@@ -10,12 +16,13 @@ import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.ColorHelper;
+import org.lwjgl.opengl.GL;
 
 import java.lang.Math;
 
 import static meteordevelopment.meteorclient.MeteorClient.mc;
 
- public class BetterCompass extends HudElement {
+public class BetterCompass extends HudElement {
     public static final HudElementInfo<BetterCompass> INFO = new HudElementInfo<>(HAHAddon.HUD_GROUP, "BetterCompass", "Because meteor's sucks.", BetterCompass::new);
 
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
@@ -259,23 +266,18 @@ import static meteordevelopment.meteorclient.MeteorClient.mc;
         .build()
     );
 
+    private final Identifier CIRCLE = Identifier.of("hahaddon", "textures/circle.png");
+    private final Identifier ARROW = Identifier.of("hahaddon", "textures/arrow.png");
+
     public BetterCompass() {
         super(INFO);
     }
 
-    private final Identifier ARROW = Identifier.of("hahaddon", "textures/arrow.png");
-    private final Identifier CIRCLE = Identifier.of("hahaddon", "textures/circle.png");
-
-    @Override
-    public void setSize(double w, double h) {
-        super.setSize(width.get(), height.get());
-    }
-
     @Override
     public void render(HudRenderer renderer) {
-        setSize(1,1);
-        double x = this.getX();
-        double y = this.getY();
+        super.setSize(width.get(), height.get());
+        double x = this.x;
+        double y = this.y;
         double height = this.getHeight();
         double width = this.getWidth();
         double arrowX = arrowScale.get();
@@ -323,18 +325,13 @@ import static meteordevelopment.meteorclient.MeteorClient.mc;
                 }
 
             } else {
-                renderer.drawContext.drawTexture(
-                    RenderPipelines.GUI_TEXTURED,
+                renderer.texture(
                     CIRCLE,
                     (int) (x + width / 2 + circleX - circleSize / 2),
-                    (int) (y + height/2 + circleY - circleSize/2),
-                    0f,
-                    0f,
+                    (int) (y + height / 2 + circleY - circleSize / 2),
                     (int) circleSize,
                     (int) circleSize,
-                    64,
-                    64,
-                    spawnColor.get().getPacked()
+                    spawnColor.get()
                 );
             }
         }
@@ -369,22 +366,22 @@ import static meteordevelopment.meteorclient.MeteorClient.mc;
             renderer.quad(x - 1, y, 1, height, frameColor.get());
             renderer.quad(x + width, y, 1, height, frameColor.get());
         }
-        /*
-        renderer.drawContext.drawTexture(
-            RenderPipelines.GUI_TEXTURED,
-            CIRCLE,
-            (int) (x + width / 2 + arrowX / 2),
-            (int) (y + height/2 + arrowY / 2),
-            0f,
-            0f,
-            (int) circleSize,
-            (int) circleSize,
-            64,
-            64,
-            spawnColor.get().getPacked()
-        );
-        */
 
+        // fuck motor
+        Renderer2D.TEXTURE.begin();
+        Renderer2D.TEXTURE.texQuad(
+            x + width / 2 - arrowX / 2,
+            y + height / 2 - arrowY / 2,
+            arrowX,
+            arrowY,
+            playerYaw + 180,
+            0,
+            0,
+            1,
+            1,
+            arrowColor.get()
+        );
+        Renderer2D.TEXTURE.render(mc.getTextureManager().getTexture(ARROW).getGlTextureView());
     }
 
     public enum TextRender {
