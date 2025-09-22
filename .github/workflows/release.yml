@@ -3,7 +3,7 @@ name: Release
 on:
     push:
         branches:
-            - "1.21.8"
+            - "master"
 
 jobs:
     release:
@@ -44,3 +44,4 @@ jobs:
                 bodyFile: "body.md"
                 name: "HAHAddon-1.21.8-${{ env.COMMIT }}"
                 tag: "Release"
+                makeLatest: true
